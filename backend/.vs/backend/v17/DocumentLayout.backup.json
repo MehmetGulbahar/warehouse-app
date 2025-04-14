@@ -1,0 +1,173 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\mhmet\\OneDrive\\Masa\u00FCst\u00FC\\warehouse-app\\backend\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\mhmet\\OneDrive\\Masa\u00FCst\u00FC\\warehouse-app\\backend\\WarehouseAppBackend\\appsettings.Development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:WarehouseAppBackend\\appsettings.Development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\mhmet\\OneDrive\\Masa\u00FCst\u00FC\\warehouse-app\\backend\\WarehouseAppBackend\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:WarehouseAppBackend\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\mhmet\\OneDrive\\Masa\u00FCst\u00FC\\warehouse-app\\backend\\WarehouseAppBackend\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:WarehouseAppBackend\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\mhmet\\OneDrive\\Masa\u00FCst\u00FC\\warehouse-app\\backend\\WarehouseAppBackend\\WarehouseAppBackend.csproj.user||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:WarehouseAppBackend\\WarehouseAppBackend.csproj.user||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\mhmet\\OneDrive\\Masa\u00FCst\u00FC\\warehouse-app\\backend\\WarehouseAppBackend\\Services\\AuthService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:WarehouseAppBackend\\Services\\AuthService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\mhmet\\OneDrive\\Masa\u00FCst\u00FC\\warehouse-app\\backend\\WarehouseAppBackend\\Services\\IAuthService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:WarehouseAppBackend\\Services\\IAuthService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\mhmet\\OneDrive\\Masa\u00FCst\u00FC\\warehouse-app\\backend\\WarehouseAppBackend\\Helpers\\JwtTokenGenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:WarehouseAppBackend\\Helpers\\JwtTokenGenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\mhmet\\OneDrive\\Masa\u00FCst\u00FC\\warehouse-app\\backend\\WarehouseAppBackend\\Models\\User.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:WarehouseAppBackend\\Models\\User.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\mhmet\\OneDrive\\Masa\u00FCst\u00FC\\warehouse-app\\backend\\WarehouseAppBackend\\Controllers\\AuthController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:WarehouseAppBackend\\Controllers\\AuthController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 1,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedHeight": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "appsettings.Development.json",
+              "DocumentMoniker": "C:\\Users\\mhmet\\OneDrive\\Masa\u00FCst\u00FC\\warehouse-app\\backend\\WarehouseAppBackend\\appsettings.Development.json",
+              "RelativeDocumentMoniker": "WarehouseAppBackend\\appsettings.Development.json",
+              "ToolTip": "C:\\Users\\mhmet\\OneDrive\\Masa\u00FCst\u00FC\\warehouse-app\\backend\\WarehouseAppBackend\\appsettings.Development.json",
+              "RelativeToolTip": "WarehouseAppBackend\\appsettings.Development.json",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-04-09T21:10:22.958Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\mhmet\\OneDrive\\Masa\u00FCst\u00FC\\warehouse-app\\backend\\WarehouseAppBackend\\appsettings.json",
+              "RelativeDocumentMoniker": "WarehouseAppBackend\\appsettings.json",
+              "ToolTip": "C:\\Users\\mhmet\\OneDrive\\Masa\u00FCst\u00FC\\warehouse-app\\backend\\WarehouseAppBackend\\appsettings.json",
+              "RelativeToolTip": "WarehouseAppBackend\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-04-09T21:10:20.041Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\mhmet\\OneDrive\\Masa\u00FCst\u00FC\\warehouse-app\\backend\\WarehouseAppBackend\\Program.cs",
+              "RelativeDocumentMoniker": "WarehouseAppBackend\\Program.cs",
+              "ToolTip": "C:\\Users\\mhmet\\OneDrive\\Masa\u00FCst\u00FC\\warehouse-app\\backend\\WarehouseAppBackend\\Program.cs",
+              "RelativeToolTip": "WarehouseAppBackend\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-09T21:08:54.304Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "WarehouseAppBackend.csproj.user",
+              "DocumentMoniker": "C:\\Users\\mhmet\\OneDrive\\Masa\u00FCst\u00FC\\warehouse-app\\backend\\WarehouseAppBackend\\WarehouseAppBackend.csproj.user",
+              "RelativeDocumentMoniker": "WarehouseAppBackend\\WarehouseAppBackend.csproj.user",
+              "ToolTip": "C:\\Users\\mhmet\\OneDrive\\Masa\u00FCst\u00FC\\warehouse-app\\backend\\WarehouseAppBackend\\WarehouseAppBackend.csproj.user",
+              "RelativeToolTip": "WarehouseAppBackend\\WarehouseAppBackend.csproj.user",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003464|",
+              "WhenOpened": "2025-04-09T21:08:46.582Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "IAuthService.cs",
+              "DocumentMoniker": "C:\\Users\\mhmet\\OneDrive\\Masa\u00FCst\u00FC\\warehouse-app\\backend\\WarehouseAppBackend\\Services\\IAuthService.cs",
+              "RelativeDocumentMoniker": "WarehouseAppBackend\\Services\\IAuthService.cs",
+              "ToolTip": "C:\\Users\\mhmet\\OneDrive\\Masa\u00FCst\u00FC\\warehouse-app\\backend\\WarehouseAppBackend\\Services\\IAuthService.cs",
+              "RelativeToolTip": "WarehouseAppBackend\\Services\\IAuthService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-09T21:01:13.864Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "AuthService.cs",
+              "DocumentMoniker": "C:\\Users\\mhmet\\OneDrive\\Masa\u00FCst\u00FC\\warehouse-app\\backend\\WarehouseAppBackend\\Services\\AuthService.cs",
+              "RelativeDocumentMoniker": "WarehouseAppBackend\\Services\\AuthService.cs",
+              "ToolTip": "C:\\Users\\mhmet\\OneDrive\\Masa\u00FCst\u00FC\\warehouse-app\\backend\\WarehouseAppBackend\\Services\\AuthService.cs",
+              "RelativeToolTip": "WarehouseAppBackend\\Services\\AuthService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAA4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-09T21:00:57.807Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\mhmet\\OneDrive\\Masa\u00FCst\u00FC\\warehouse-app\\backend\\WarehouseAppBackend\\Models\\User.cs",
+              "RelativeDocumentMoniker": "WarehouseAppBackend\\Models\\User.cs",
+              "ToolTip": "C:\\Users\\mhmet\\OneDrive\\Masa\u00FCst\u00FC\\warehouse-app\\backend\\WarehouseAppBackend\\Models\\User.cs",
+              "RelativeToolTip": "WarehouseAppBackend\\Models\\User.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-09T21:00:45.488Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "JwtTokenGenerator.cs",
+              "DocumentMoniker": "C:\\Users\\mhmet\\OneDrive\\Masa\u00FCst\u00FC\\warehouse-app\\backend\\WarehouseAppBackend\\Helpers\\JwtTokenGenerator.cs",
+              "RelativeDocumentMoniker": "WarehouseAppBackend\\Helpers\\JwtTokenGenerator.cs",
+              "ToolTip": "C:\\Users\\mhmet\\OneDrive\\Masa\u00FCst\u00FC\\warehouse-app\\backend\\WarehouseAppBackend\\Helpers\\JwtTokenGenerator.cs",
+              "RelativeToolTip": "WarehouseAppBackend\\Helpers\\JwtTokenGenerator.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-09T21:00:39.764Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "C:\\Users\\mhmet\\OneDrive\\Masa\u00FCst\u00FC\\warehouse-app\\backend\\WarehouseAppBackend\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "WarehouseAppBackend\\Controllers\\AuthController.cs",
+              "ToolTip": "C:\\Users\\mhmet\\OneDrive\\Masa\u00FCst\u00FC\\warehouse-app\\backend\\WarehouseAppBackend\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "WarehouseAppBackend\\Controllers\\AuthController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-09T21:00:30.234Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

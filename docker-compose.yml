@@ -1,0 +1,37 @@
+services:
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "3000:3000"
+    networks:
+      - warehouse-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: WarehouseAppBackend/Dockerfile
+    ports:
+      - "5000:80"
+    networks:
+      - warehouse-network
+    depends_on:
+      - sqlserver
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=WarehouseDB;User=sa;Password=w3PTZH95sOObRyW;
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: warehouse-sqlserver
+    environment:
+      SA_PASSWORD: "w3PTZH95sOObRyW"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    networks:
+      - warehouse-network
+
+networks:
+  warehouse-network:
+    driver: bridge
+    

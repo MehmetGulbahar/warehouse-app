@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "kwbf8fRo9WBHw/KgLvvfA60oOl3Nc+w3c8cX2+ylk6U=",
+  "Source": "WarehouseAppBackend",
+  "BasePath": "_content/WarehouseAppBackend",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
