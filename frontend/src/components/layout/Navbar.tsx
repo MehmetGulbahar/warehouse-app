@@ -106,7 +106,7 @@ export default function Navbar() {
                   
                   {/* User Dropdown Menu */}
                   {isUserMenuOpen && (
-                    <div className="absolute right-0 mt-2 w-48 bg-white rounded-md ring-1 ring-black ring-opacity-5 shadow-lg dark:bg-gray-800">
+                    <div className="absolute right-0 mt-2 w-48 bg-white rounded-md ring-1 ring-black ring-opacity-5 shadow-lg dark:bg-gray-800" style={{ zIndex: 1 }}>
                       <div className="py-1">
                         <div className="px-4 py-2 text-sm text-gray-700 border-b border-gray-100 dark:text-gray-200 dark:border-gray-700">
                           <p className="font-medium">{userData.nameSurname}</p>

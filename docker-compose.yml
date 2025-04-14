@@ -18,13 +18,13 @@ services:
     depends_on:
       - sqlserver
     environment:
-      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=WarehouseDB;User=sa;Password=w3PTZH95sOObRyW;
+      - ConnectionStrings__DefaultConnection=Server=${DB_SERVER};Database=${DB_NAME};User=${DB_USER};Password=${DB_PASSWORD};
 
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: warehouse-sqlserver
     environment:
-      SA_PASSWORD: "w3PTZH95sOObRyW"
+      SA_PASSWORD: ${DB_PASSWORD}
       ACCEPT_EULA: "Y"
     ports:
       - "1433:1433"
