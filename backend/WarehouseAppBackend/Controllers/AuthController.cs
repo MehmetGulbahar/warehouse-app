@@ -94,7 +94,7 @@ public class AuthController : ControllerBase
         }
 
         var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-        
+
         var encodedToken = TokenHelper.Encode(token);
 
         var confirmationLink = $"{Request.Scheme}://{Request.Host}/api/auth/confirm-email?email={user.Email}&token={encodedToken}";

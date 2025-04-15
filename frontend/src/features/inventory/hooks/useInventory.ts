@@ -24,69 +24,6 @@ interface Filters {
   sortOrder: 'asc' | 'desc'
 }
 
-// Örnek veri
-const mockItems: InventoryItem[] = [
-  {
-    id: '1',
-    name: 'Laptop Dell XPS 13',
-    sku: 'LAP-DEL-001',
-    category: 'Elektronik',
-    supplier: 'Dell',
-    quantity: 15,
-    unit: 'piece',
-    price: 25000,
-    status: 'in-stock',
-    lastUpdated: '2024-02-20'
-  },
-  {
-    id: '2',
-    name: 'iPhone 15 Pro',
-    sku: 'PHN-APP-001',
-    category: 'Elektronik',
-    supplier: 'Apple',
-    quantity: 8,
-    unit: 'piece',
-    price: 45000,
-    status: 'low-stock',
-    lastUpdated: '2024-02-19'
-  },
-  {
-    id: '3',
-    name: 'Samsung 4K TV',
-    sku: 'TV-SAM-001',
-    category: 'Electronics',
-    supplier: 'Samsung',
-    quantity: 0,
-    unit: 'piece',
-    price: 35000,
-    status: 'out-of-stock',
-    lastUpdated: '2024-02-18'
-  },
-  {
-    id: '4',
-    name: 'Logitech MX Master 3',
-    sku: 'MOU-LOG-001',
-    category: 'Accessories',
-    supplier: 'Logitech',
-    quantity: 25,
-    unit: 'piece',
-    price: 2500,
-    status: 'in-stock',
-    lastUpdated: '2024-02-17'
-  },
-  {
-    id: '5',
-    name: 'Apple AirPods Pro',
-    sku: 'AUD-APP-001',
-    category: 'Accessories',
-    supplier: 'Apple',
-    quantity: 12,
-    unit: 'piece',
-    price: 7500,
-    status: 'in-stock',
-    lastUpdated: '2024-02-16'
-  }
-]
 
 export function useInventory() {
   const [items, setItems] = useState<InventoryItem[]>([])
@@ -106,16 +43,19 @@ export function useInventory() {
     const fetchData = async () => {
       try {
         setLoading(true)
-        // Gerçek uygulamada API çağrısı yapılacak
-        // const response = await fetch('/api/inventory')
-        // const data = await response.json()
+        const response = await fetch('http://localhost:5210/api/inventory', {
+          credentials: 'include'
+        })
         
-        // Şimdilik mock veri kullanıyoruz
-        await new Promise(resolve => setTimeout(resolve, 1000)) // Yükleme simülasyonu
-        setItems(mockItems)
+        if (!response.ok) {
+          throw new Error('Products loading error Please login')
+        }
+        
+        const data = await response.json()
+        setItems(data)
         setError(null)
       } catch (err) {
-        setError('Data loading error.')
+        setError('Products loading error Please login')
         console.error('Data loading error:', err)
       } finally {
         setLoading(false)
@@ -133,15 +73,72 @@ export function useInventory() {
   // Ürün silme fonksiyonu
   const deleteItem = async (id: string) => {
     try {
-      // Gerçek uygulamada API çağrısı yapılacak
-      // await fetch(`/api/inventory/${id}`, { method: 'DELETE' })
+      const response = await fetch(`http://localhost:5210/api/inventory/${id}`, {
+        method: 'DELETE',
+        credentials: 'include'
+      })
       
-      // Şimdilik mock silme işlemi
+      if (!response.ok) {
+        throw new Error('Product deletion error Please login')
+      }
+      
       setItems(prev => prev.filter(item => item.id !== id))
       return true
     } catch (err) {
-      setError('Product deletion error.')
+      setError('Product deletion error Please login')
       console.error('Deletion error:', err)
+      throw err
+    }
+  }
+
+  // Ürün güncelleme fonksiyonu
+  const updateItem = async (id: string, updatedItem: Partial<InventoryItem>) => {
+    try {
+      const response = await fetch(`http://localhost:5210/api/inventory/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+        body: JSON.stringify(updatedItem)
+      })
+      
+      if (!response.ok) {
+        throw new Error('Product update error Please login')
+      }
+      
+      const data = await response.json()
+      setItems(prev => prev.map(item => item.id === id ? data : item))
+      return data
+    } catch (err) {
+      setError('Product update error Please login')
+      console.error('Update error:', err)
+      throw err
+    }
+  }
+
+  // Yeni ürün ekleme fonksiyonu
+  const addItem = async (newItem: Omit<InventoryItem, 'id' | 'lastUpdated'>) => {
+    try {
+      const response = await fetch('http://localhost:5210/api/inventory', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+        body: JSON.stringify(newItem)
+      })
+      
+      if (!response.ok) {
+        throw new Error('Product add error Please login')
+      }
+      
+      const data = await response.json()
+      setItems(prev => [...prev, data])
+      return data
+    } catch (err) {
+      setError('Product add error Please login')
+      console.error('Add error:', err)
       throw err
     }
   }
@@ -184,6 +181,8 @@ export function useInventory() {
     error,
     filters,
     updateFilters,
-    deleteItem
+    deleteItem,
+    updateItem,
+    addItem
   }
-} 
+}

@@ -9,7 +9,9 @@ using WarehouseAppBackend.Services;
 using WarehouseAppBackend.Data;
 using WarehouseAppBackend.Services.Email;
 using WarehouseAppBackend.Services.Token;
-
+using WarehouseAppBackend.Data.Interfaces;
+using WarehouseAppBackend.Data.Repositories;
+using WarehouseAppBackend.Services.Interfaces;
 
 namespace WarehouseAppBackend
 {
@@ -71,8 +73,11 @@ namespace WarehouseAppBackend
             builder.Services.AddScoped<AuthHelperService, AuthHelperService>();
             builder.Services.AddScoped<IEmailConfirmationService, EmailConfirmationService>();
             builder.Services.AddScoped<ITokenService, TokenService>();
-            builder.Services.AddScoped<ITokenService, TokenService>();
             builder.Services.AddScoped<IEmailTemplateService, EmailTemplateService>();
+
+            // Register Inventory Services
+            builder.Services.AddScoped<IInventoryRepository, InventoryRepository>();
+            builder.Services.AddScoped<IInventoryService, InventoryService>();
 
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(c =>
@@ -146,3 +151,5 @@ namespace WarehouseAppBackend
         }
     }
 }
+
+buraya ne eklemem lazim ? 

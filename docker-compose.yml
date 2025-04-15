@@ -12,7 +12,7 @@ services:
       context: ./backend
       dockerfile: WarehouseAppBackend/Dockerfile
     ports:
-      - "5000:80"
+    - "5210:5210"
     networks:
       - warehouse-network
     depends_on:
