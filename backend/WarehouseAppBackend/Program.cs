@@ -27,14 +27,21 @@ namespace WarehouseAppBackend
             {
                 options.AddPolicy("AllowReactApp",
                     builder => builder
-                        .WithOrigins("http://localhost:3000")
+                        .WithOrigins("http://localhost:3000", "http://frontend:3000")
                         .AllowAnyMethod()
                         .AllowAnyHeader()
                         .AllowCredentials());
             });
 
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
+                    sqlServerOptionsAction: sqlOptions =>
+                    {
+                        sqlOptions.EnableRetryOnFailure(
+                            maxRetryCount: 5,
+                            maxRetryDelay: TimeSpan.FromSeconds(30),
+                            errorNumbersToAdd: null);
+                    }));
 
             builder.Services.AddIdentity<User, IdentityRole>(options =>
             {
@@ -87,6 +94,25 @@ namespace WarehouseAppBackend
 
             var app = builder.Build();
 
+            // Exception handling middleware
+            app.Use(async (context, next) =>
+            {
+                try
+                {
+                    await next();
+                }
+                catch (Exception ex)
+                {
+                    context.Response.StatusCode = 500;
+                    await context.Response.WriteAsJsonAsync(new
+                    {
+                        Success = false,
+                        Message = "An error occurred while processing your request.",
+                        Error = ex.Message
+                    });
+                }
+            });
+
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
@@ -98,30 +124,13 @@ namespace WarehouseAppBackend
                     try
                     {
                         var context = services.GetRequiredService<ApplicationDbContext>();
-                        var userManager = services.GetRequiredService<UserManager<User>>();
-
-                        var users = await userManager.Users.ToListAsync();
-                        foreach (var user in users)
-                        {
-                            await userManager.DeleteAsync(user);
-                        }
-
-                        var tables = context.Model.GetEntityTypes()
-                            .Select(t => t.GetTableName())
-                            .Where(t => t != null && !t.Contains("AspNet"))
-                            .ToList();
-
-                        foreach (var table in tables)
-                        {
-                            await context.Database.ExecuteSqlRawAsync($"DELETE FROM [{table}]");
-                        }
-
-                        await context.SaveChangesAsync();
-                        Console.WriteLine("Database purged successfully..");
+                        await context.Database.EnsureCreatedAsync();
+                        await context.Database.MigrateAsync();
+                        Console.WriteLine("Database created and migrated successfully.");
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine($"Error occurred while clearing database: {ex.Message}");
+                        Console.WriteLine($"Error occurred while creating database: {ex.Message}");
                     }
                 }
             }
