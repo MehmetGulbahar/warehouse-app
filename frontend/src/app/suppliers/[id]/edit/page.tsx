@@ -25,11 +25,7 @@ export default function EditSupplierPage() {
     const fetchSupplier = async () => {
       try {
         setLoading(true);
-        // Gerçek uygulamada API çağrısı yapılacak
-        // const response = await fetch(`/api/suppliers/${params.id}`);
-        // const data = await response.json();
-        
-        // Şimdilik mock veri kullanıyoruz
+       
         await new Promise(resolve => setTimeout(resolve, 800));
         
         // Mock supplier data

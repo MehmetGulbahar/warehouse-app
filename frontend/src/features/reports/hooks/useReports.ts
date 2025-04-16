@@ -20,7 +20,6 @@ export interface ReportData {
   };
 }
 
-// Mock veri - gerçek uygulamada bu veriler API'den gelecek
 const mockReportData: ReportData[] = [
   {
     id: '1',
@@ -86,14 +85,11 @@ export const useReports = () => {
     setFilters(prev => ({ ...prev, ...newFilters }));
   };
 
-  // Filtrelere göre rapor verilerini döndürür
   const getReportData = (): ReportData[] => {
-    // Eğer tüm raporlar isteniyorsa
     if (filters.type === 'all') {
       return mockReportData;
     }
     
-    // Filtre tipine göre raporları filtrele
     return mockReportData.filter(report => report.type === filters.type);
   };
 

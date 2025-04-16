@@ -9,7 +9,7 @@ export default function InventoryReportsPage() {
 
   // Filter reports for inventory only
   const inventoryReports = reportData.filter(report => 
-    report.title.includes('Stok') || report.title.includes('Envanter')
+    report.title.includes('Stock') || report.title.includes('Inventory')
   );
 
   if (loading) {

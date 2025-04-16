@@ -152,4 +152,3 @@ namespace WarehouseAppBackend
     }
 }
 
-buraya ne eklemem lazim ? 

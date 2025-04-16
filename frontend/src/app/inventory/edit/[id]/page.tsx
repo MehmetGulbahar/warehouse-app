@@ -27,30 +27,18 @@ export default function EditInventoryPage() {
     const fetchItem = async () => {
       try {
         setLoading(true)
-        // Gerçek uygulamada API çağrısı yapılacak
-        // const response = await fetch(`/api/inventory/${params.id}`)
-        // const data = await response.json()
+        const response = await fetch(`http://localhost:5210/api/inventory/${params.id}`, {
+          credentials: 'include'
+        })
         
-        // Şimdilik mock veri kullanıyoruz
-        await new Promise(resolve => setTimeout(resolve, 1000)) // Yükleme simülasyonu
-        
-        // Mock veri
-        const mockItem: InventoryItem = {
-          id: params.id as string,
-          name: 'Laptop Dell XPS 13',
-          sku: 'LAP-DEL-001',
-          category: 'Electronics',
-          supplier: 'Dell',
-          quantity: 15,
-          unit: 'piece',
-          price: 25000,
-          status: 'in-stock',
-          lastUpdated: '2024-02-20'
+        if (!response.ok) {
+          throw new Error('Product information loading error.')
         }
         
-        // id ve lastUpdated hariç form verilerini ayarla
+        const data = await response.json()
+        
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { id, lastUpdated, ...itemData } = mockItem
+        const { id, lastUpdated, ...itemData } = data
         setFormData(itemData)
         setError(null)
       } catch (err) {
@@ -66,11 +54,9 @@ export default function EditInventoryPage() {
     }
   }, [params.id])
 
-  // Form değişikliklerini işle
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target
     
-    // Sayısal değerler için dönüşüm yap
     if (name === 'quantity' || name === 'price') {
       setFormData(prev => ({ ...prev, [name]: parseFloat(value) || 0 }))
     } else {
@@ -78,29 +64,30 @@ export default function EditInventoryPage() {
     }
   }
 
-  // Form gönderimi
+  // Form submit
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setSaving(true)
     setError(null)
 
     try {
-      // Gerçek uygulamada API çağrısı yapılacak
-      // const response = await fetch(`/api/inventory/${params.id}`, {
-      //   method: 'PUT',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify(formData)
-      // })
+      const response = await fetch(`http://localhost:5210/api/inventory/${params.id}`, {
+        method: 'PUT',
+        headers: { 
+          'Content-Type': 'application/json' 
+        },
+        credentials: 'include',
+        body: JSON.stringify(formData)
+      })
       
-      // if (!response.ok) throw new Error('Ürün güncellenirken bir hata oluştu')
+      if (!response.ok) {
+        const errorData = await response.json()
+        throw new Error(errorData.message || 'Product update error.')
+      }
       
-      // Şimdilik başarılı kabul ediyoruz
-      await new Promise(resolve => setTimeout(resolve, 1000)) // Yükleme simülasyonu
-      
-      // Başarılı güncelleme sonrası detay sayfasına yönlendir
       router.push(`/inventory/${params.id}`)
     } catch (err) {
-      setError('Product update error.')
+      setError(err instanceof Error ? err.message : 'Product update error.')
       console.error('Update error:', err)
     } finally {
       setSaving(false)

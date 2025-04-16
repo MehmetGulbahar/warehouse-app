@@ -35,7 +35,6 @@ export const useSuppliers = () => {
     setFilters(prev => ({ ...prev, ...newFilters }));
   };
 
-  // Mock data - Gerçek uygulamada API'den gelecek
   const mockSuppliers: Supplier[] = [
     {
       id: '1',
@@ -75,11 +74,9 @@ export const useSuppliers = () => {
     },
   ];
 
-  // Filtreleme ve sıralama işlemleri
   const filteredSuppliers = useMemo(() => {
     let result = [...mockSuppliers];
 
-    // Arama filtresi
     if (filters.search) {
       const searchLower = filters.search.toLowerCase();
       result = result.filter(supplier => 
@@ -89,12 +86,10 @@ export const useSuppliers = () => {
       );
     }
 
-    // Durum filtresi
     if (filters.status !== 'all') {
       result = result.filter(supplier => supplier.status === filters.status);
     }
 
-    // Sıralama
     result.sort((a, b) => {
       const order = filters.sortOrder === 'asc' ? 1 : -1;
       if (filters.sortBy === 'name') {
