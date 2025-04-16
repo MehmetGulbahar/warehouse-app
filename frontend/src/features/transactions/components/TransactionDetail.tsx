@@ -43,7 +43,7 @@ export const TransactionDetail = ({ transaction }: TransactionDetailProps) => {
               <FiArrowUp className="mr-3 w-8 h-8 text-red-500" />
             )}
             <h2 className="text-xl font-semibold text-gray-900">
-              {transaction.type === 'incoming' ? 'Gelen Stok' : 'Çıkan Stok'}
+              {transaction.type === 'incoming' ? 'Stock In' : 'Stock Out'}
             </h2>
           </div>
           <span className={`px-3 py-1 inline-flex text-sm leading-5 font-semibold rounded-full ${getStatusColor(transaction.status)}`}>
@@ -59,14 +59,14 @@ export const TransactionDetail = ({ transaction }: TransactionDetailProps) => {
             <div className="flex items-center">
               <FiPackage className="mr-3 w-5 h-5 text-gray-400" />
               <div>
-                <p className="text-sm font-medium text-gray-500">Ürün</p>
+                <p className="text-sm font-medium text-gray-500">Product</p>
                 <p className="text-sm text-gray-900">{transaction.productName}</p>
               </div>
             </div>
             <div className="flex items-center">
               <FiCalendar className="mr-3 w-5 h-5 text-gray-400" />
               <div>
-                <p className="text-sm font-medium text-gray-500">Tarih</p>
+                <p className="text-sm font-medium text-gray-500">Date</p>
                 <p className="text-sm text-gray-900">{new Date(transaction.date).toLocaleDateString('tr-TR')}</p>
               </div>
             </div>
@@ -76,7 +76,7 @@ export const TransactionDetail = ({ transaction }: TransactionDetailProps) => {
             <div className="flex items-center">
               <FiPackage className="mr-3 w-5 h-5 text-gray-400" />
               <div>
-                <p className="text-sm font-medium text-gray-500">Miktar</p>
+                <p className="text-sm font-medium text-gray-500">Quantity</p>
                 <p className="text-sm text-gray-900">{transaction.quantity}</p>
               </div>
             </div>
@@ -84,7 +84,7 @@ export const TransactionDetail = ({ transaction }: TransactionDetailProps) => {
               <FiUser className="mr-3 w-5 h-5 text-gray-400" />
               <div>
                 <p className="text-sm font-medium text-gray-500">
-                  {transaction.type === 'incoming' ? 'Tedarikçi' : 'Müşteri'}
+                  {transaction.type === 'incoming' ? 'Supplier' : 'Customer'}
                 </p>
                 <p className="text-sm text-gray-900">
                   {transaction.type === 'incoming' ? transaction.supplier : transaction.customer}

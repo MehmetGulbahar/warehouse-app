@@ -63,36 +63,36 @@ export const TransactionList = ({ transactions, loading, error }: TransactionLis
 
   return (
     <>
-      <div className="w-full bg-white rounded-xl border border-gray-100 shadow-sm">
+      <div className="w-full bg-white rounded-xl border border-gray-100 shadow-sm dark:bg-gray-800 dark:border-gray-700">
         <div className="overflow-x-auto w-full">
-          <table className="w-full text-center divide-y divide-gray-200">
-            <thead className="bg-gray-50">
+          <table className="w-full text-center divide-y divide-gray-200 dark:divide-gray-700">
+            <thead className="bg-gray-50 dark:bg-gray-700">
               <tr>
-                <th scope="col" className="px-12 py-8 text-lg font-semibold tracking-wider text-left text-gray-600 uppercase">
+                <th scope="col" className="px-12 py-8 text-lg font-semibold tracking-wider text-left text-gray-600 uppercase dark:text-gray-300">
                  Transaction
                 </th>
-                <th scope="col" className="px-12 py-8 text-lg font-semibold tracking-wider text-left text-gray-600 uppercase">
+                <th scope="col" className="px-12 py-8 text-lg font-semibold tracking-wider text-left text-gray-600 uppercase dark:text-gray-300">
                   Product
                 </th>
-                <th scope="col" className="px-12 py-8 text-lg font-semibold tracking-wider text-left text-gray-600 uppercase">
+                <th scope="col" className="px-12 py-8 text-lg font-semibold tracking-wider text-left text-gray-600 uppercase dark:text-gray-300">
                   Quantity
                 </th>
-                <th scope="col" className="px-12 py-8 text-lg font-semibold tracking-wider text-left text-gray-600 uppercase">
+                <th scope="col" className="px-12 py-8 text-lg font-semibold tracking-wider text-left text-gray-600 uppercase dark:text-gray-300">
                   Date
                 </th>
-                <th scope="col" className="px-12 py-8 text-lg font-semibold tracking-wider text-left text-gray-600 uppercase">
+                <th scope="col" className="px-12 py-8 text-lg font-semibold tracking-wider text-left text-gray-600 uppercase dark:text-gray-300">
                   Status
                 </th>
-                <th scope="col" className="px-12 py-8 text-lg font-semibold tracking-wider text-left text-gray-600 uppercase">
+                <th scope="col" className="px-12 py-8 text-lg font-semibold tracking-wider text-left text-gray-600 uppercase dark:text-gray-300">
                   {transactions[0].type === 'incoming' ? 'Supplier' : 'Customer'}
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
+            <tbody className="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
               {transactions.map((transaction) => (
                 <tr 
                   key={transaction.id} 
-                  className="transition-colors duration-200 cursor-pointer hover:bg-gray-50"
+                  className="transition-colors duration-200 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700"
                   onClick={() => setSelectedTransaction(transaction)}
                 >
                   <td className="px-8 py-4 whitespace-nowrap">
@@ -105,13 +105,13 @@ export const TransactionList = ({ transactions, loading, error }: TransactionLis
                     </div>
                   </td>
                   <td className="px-12 py-9 whitespace-nowrap">
-                    <div className="text-xl font-medium text-gray-900">{transaction.productName}</div>
+                    <div className="text-xl font-medium text-gray-900 dark:text-white">{transaction.productName}</div>
                   </td>
                   <td className="px-12 py-9 whitespace-nowrap">
-                    <div className="text-xl text-gray-900">{transaction.quantity}</div>
+                    <div className="text-xl text-gray-900 dark:text-white">{transaction.quantity}</div>
                   </td>
                   <td className="px-12 py-9 whitespace-nowrap">
-                    <div className="text-xl text-gray-900">{new Date(transaction.date).toLocaleDateString('tr-TR')}</div>
+                    <div className="text-xl text-gray-900 dark:text-white">{new Date(transaction.date).toLocaleDateString('tr-TR')}</div>
                   </td>
                   <td className="px-12 py-9 whitespace-nowrap">
                     <span className={`inline-flex items-center text-xl font-medium ${getStatusColor(transaction.status)}`}>
@@ -119,7 +119,7 @@ export const TransactionList = ({ transactions, loading, error }: TransactionLis
                       <span className="ml-2">{transaction.status}</span>
                     </span>
                   </td>
-                  <td className="px-12 py-9 text-xl text-gray-500 whitespace-nowrap">
+                  <td className="px-12 py-9 text-xl text-gray-500 whitespace-nowrap dark:text-gray-400">
                     {transaction.type === 'incoming' ? transaction.supplier : transaction.customer}
                   </td>
                 </tr>
@@ -132,43 +132,43 @@ export const TransactionList = ({ transactions, loading, error }: TransactionLis
       {/* Modal */}
       {selectedTransaction && (
         <div className="flex fixed inset-0 z-50 justify-center items-center backdrop-blur-sm bg-black/30">
-          <div className="p-6 mx-4 w-full max-w-md bg-white rounded-2xl shadow-lg">
+          <div className="p-6 mx-4 w-full max-w-md bg-white rounded-2xl shadow-lg dark:bg-gray-800">
             <div className="flex justify-between items-center mb-6">
-              <h3 className="text-lg font-semibold text-gray-900">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
                 {selectedTransaction.type === 'incoming' ? 'Incoming Stock Details' : 'Outgoing Stock Details'}
               </h3>
               <button 
                 onClick={() => setSelectedTransaction(null)}
-                className="p-1 text-gray-400 transition-colors duration-200 hover:text-gray-500"
+                className="p-1 text-gray-400 transition-colors duration-200 hover:text-gray-500 dark:hover:text-gray-300"
               >
                 <FiXCircle className="w-5 h-5" />
               </button>
             </div>
             
             <div className="space-y-4">
-              <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                <span className="text-sm font-medium text-gray-500">Product</span>
-                <span className="text-sm text-gray-900">{selectedTransaction.productName}</span>
+              <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg dark:bg-gray-700">
+                <span className="text-sm font-medium text-gray-500 dark:text-gray-400">Product</span>
+                <span className="text-sm text-gray-900 dark:text-white">{selectedTransaction.productName}</span>
               </div>
-              <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                <span className="text-sm font-medium text-gray-500">Quantity</span>
-                <span className="text-sm text-gray-900">{selectedTransaction.quantity}</span>
+              <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg dark:bg-gray-700">
+                <span className="text-sm font-medium text-gray-500 dark:text-gray-400">Quantity</span>
+                <span className="text-sm text-gray-900 dark:text-white">{selectedTransaction.quantity}</span>
               </div>
-              <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                <span className="text-sm font-medium text-gray-500">Date</span>
-                <span className="text-sm text-gray-900">{new Date(selectedTransaction.date).toLocaleDateString('tr-TR')}</span>
+              <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg dark:bg-gray-700">
+                <span className="text-sm font-medium text-gray-500 dark:text-gray-400">Date</span>
+                <span className="text-sm text-gray-900 dark:text-white">{new Date(selectedTransaction.date).toLocaleDateString('tr-TR')}</span>
               </div>
-              <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                <span className="text-sm font-medium text-gray-500">Status</span>
+              <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg dark:bg-gray-700">
+                <span className="text-sm font-medium text-gray-500 dark:text-gray-400">Status</span>
                 <span className={`px-3 py-1 text-xs font-medium rounded-full ${getStatusColor(selectedTransaction.status)}`}>
                   {selectedTransaction.status}
                 </span>
               </div>
-              <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                <span className="text-sm font-medium text-gray-500">
+              <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg dark:bg-gray-700">
+                <span className="text-sm font-medium text-gray-500 dark:text-gray-400">
                   {selectedTransaction.type === 'incoming' ? 'Supplier' : 'Customer'}
                 </span>
-                <span className="text-sm text-gray-900">
+                <span className="text-sm text-gray-900 dark:text-white">
                   {selectedTransaction.type === 'incoming' ? selectedTransaction.supplier : selectedTransaction.customer}
                 </span>
               </div>

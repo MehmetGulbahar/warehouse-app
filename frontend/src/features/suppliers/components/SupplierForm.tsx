@@ -58,7 +58,7 @@ export const SupplierForm = ({ onSubmit, initialData }: SupplierFormProps) => {
       <div className="mb-10">
         <Link
           href="/suppliers"
-          className="inline-flex items-center text-gray-600 transition-colors duration-200 hover:text-gray-900"
+          className="inline-flex items-center text-gray-600 dark:text-gray-400 transition-colors duration-200 hover:text-gray-900 dark:hover:text-gray-300"
         >
           <FiArrowLeft className="mr-2 w-5 h-5" />
           Back to Suppliers
@@ -68,12 +68,12 @@ export const SupplierForm = ({ onSubmit, initialData }: SupplierFormProps) => {
       <div className="grid grid-cols-1 gap-10 sm:grid-cols-2">
         <div className="space-y-8">
           <div>
-            <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-700">
+            <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
               Supplier Name
             </label>
             <div className="relative">
               <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-                <FiUser className="w-5 h-5 text-gray-400" />
+                <FiUser className="w-5 h-5 text-gray-400 dark:text-gray-500" />
               </div>
               <input
                 type="text"
@@ -81,22 +81,22 @@ export const SupplierForm = ({ onSubmit, initialData }: SupplierFormProps) => {
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                className={`block w-full pl-10 pr-3 py-3 text-base text-gray-900 bg-white border ${
-                  errors.name ? 'border-red-300' : 'border-gray-200'
-                } rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 hover:border-gray-300`}
+                className={`block w-full pl-10 pr-3 py-3 text-base text-gray-900 dark:text-white bg-white dark:bg-gray-700 border ${
+                  errors.name ? 'border-red-300 dark:border-red-500' : 'border-gray-200 dark:border-gray-600'
+                } rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 hover:border-gray-300 dark:hover:border-gray-500`}
                 placeholder="Enter supplier name"
               />
             </div>
-            {errors.name && <p className="mt-2 text-sm text-red-600">{errors.name}</p>}
+            {errors.name && <p className="mt-2 text-sm text-red-600 dark:text-red-400">{errors.name}</p>}
           </div>
 
           <div>
-            <label htmlFor="taxNumber" className="block mb-2 text-sm font-medium text-gray-700">
+            <label htmlFor="taxNumber" className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
               Tax Number
             </label>
             <div className="relative">
               <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-                <FiHash className="w-5 h-5 text-gray-400" />
+                <FiHash className="w-5 h-5 text-gray-400 dark:text-gray-500" />
               </div>
               <input
                 type="text"
@@ -104,22 +104,22 @@ export const SupplierForm = ({ onSubmit, initialData }: SupplierFormProps) => {
                 name="taxNumber"
                 value={formData.taxNumber}
                 onChange={handleChange}
-                className={`block w-full pl-10 pr-3 py-3 text-base text-gray-900 bg-white border ${
-                  errors.taxNumber ? 'border-red-300' : 'border-gray-200'
-                } rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 hover:border-gray-300`}
+                className={`block w-full pl-10 pr-3 py-3 text-base text-gray-900 dark:text-white bg-white dark:bg-gray-700 border ${
+                  errors.taxNumber ? 'border-red-300 dark:border-red-500' : 'border-gray-200 dark:border-gray-600'
+                } rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 hover:border-gray-300 dark:hover:border-gray-500`}
                 placeholder="Enter tax number"
               />
             </div>
-            {errors.taxNumber && <p className="mt-2 text-sm text-red-600">{errors.taxNumber}</p>}
+            {errors.taxNumber && <p className="mt-2 text-sm text-red-600 dark:text-red-400">{errors.taxNumber}</p>}
           </div>
 
           <div>
-            <label htmlFor="contactPerson" className="block mb-2 text-sm font-medium text-gray-700">
+            <label htmlFor="contactPerson" className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
               Contact Person
             </label>
             <div className="relative">
               <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-                <FiUser className="w-5 h-5 text-gray-400" />
+                <FiUser className="w-5 h-5 text-gray-400 dark:text-gray-500" />
               </div>
               <input
                 type="text"
@@ -127,24 +127,24 @@ export const SupplierForm = ({ onSubmit, initialData }: SupplierFormProps) => {
                 name="contactPerson"
                 value={formData.contactPerson}
                 onChange={handleChange}
-                className={`block w-full pl-10 pr-3 py-3 text-base text-gray-900 bg-white border ${
-                  errors.contactPerson ? 'border-red-300' : 'border-gray-200'
-                } rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 hover:border-gray-300`}
+                className={`block w-full pl-10 pr-3 py-3 text-base text-gray-900 dark:text-white bg-white dark:bg-gray-700 border ${
+                  errors.contactPerson ? 'border-red-300 dark:border-red-500' : 'border-gray-200 dark:border-gray-600'
+                } rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 hover:border-gray-300 dark:hover:border-gray-500`}
                 placeholder="Enter contact person name"
               />
             </div>
-            {errors.contactPerson && <p className="mt-2 text-sm text-red-600">{errors.contactPerson}</p>}
+            {errors.contactPerson && <p className="mt-2 text-sm text-red-600 dark:text-red-400">{errors.contactPerson}</p>}
           </div>
         </div>
 
         <div className="space-y-8">
           <div>
-            <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-700">
+            <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
               Email
             </label>
             <div className="relative">
               <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-                <FiMail className="w-5 h-5 text-gray-400" />
+                <FiMail className="w-5 h-5 text-gray-400 dark:text-gray-500" />
               </div>
               <input
                 type="email"
@@ -152,22 +152,22 @@ export const SupplierForm = ({ onSubmit, initialData }: SupplierFormProps) => {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className={`block w-full pl-10 pr-3 py-3 text-base text-gray-900 bg-white border ${
-                  errors.email ? 'border-red-300' : 'border-gray-200'
-                } rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 hover:border-gray-300`}
+                className={`block w-full pl-10 pr-3 py-3 text-base text-gray-900 dark:text-white bg-white dark:bg-gray-700 border ${
+                  errors.email ? 'border-red-300 dark:border-red-500' : 'border-gray-200 dark:border-gray-600'
+                } rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 hover:border-gray-300 dark:hover:border-gray-500`}
                 placeholder="Enter email address"
               />
             </div>
-            {errors.email && <p className="mt-2 text-sm text-red-600">{errors.email}</p>}
+            {errors.email && <p className="mt-2 text-sm text-red-600 dark:text-red-400">{errors.email}</p>}
           </div>
 
           <div>
-            <label htmlFor="phone" className="block mb-2 text-sm font-medium text-gray-700">
+            <label htmlFor="phone" className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
               Phone
             </label>
             <div className="relative">
               <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-                <FiPhone className="w-5 h-5 text-gray-400" />
+                <FiPhone className="w-5 h-5 text-gray-400 dark:text-gray-500" />
               </div>
               <input
                 type="tel"
@@ -175,29 +175,29 @@ export const SupplierForm = ({ onSubmit, initialData }: SupplierFormProps) => {
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
-                className={`block w-full pl-10 pr-3 py-3 text-base text-gray-900 bg-white border ${
-                  errors.phone ? 'border-red-300' : 'border-gray-200'
-                } rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 hover:border-gray-300`}
+                className={`block w-full pl-10 pr-3 py-3 text-base text-gray-900 dark:text-white bg-white dark:bg-gray-700 border ${
+                  errors.phone ? 'border-red-300 dark:border-red-500' : 'border-gray-200 dark:border-gray-600'
+                } rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 hover:border-gray-300 dark:hover:border-gray-500`}
                 placeholder="Enter phone number"
               />
             </div>
-            {errors.phone && <p className="mt-2 text-sm text-red-600">{errors.phone}</p>}
+            {errors.phone && <p className="mt-2 text-sm text-red-600 dark:text-red-400">{errors.phone}</p>}
           </div>
 
           <div>
-            <label htmlFor="status" className="block mb-2 text-sm font-medium text-gray-700">
+            <label htmlFor="status" className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
               Status
             </label>
             <div className="relative">
               <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-                <FiCheckCircle className="w-5 h-5 text-gray-400" />
+                <FiCheckCircle className="w-5 h-5 text-gray-400 dark:text-gray-500" />
               </div>
               <select
                 id="status"
                 name="status"
                 value={formData.status}
                 onChange={handleChange}
-                className="block py-3 pr-3 pl-10 w-full text-base text-gray-900 bg-white rounded-lg border border-gray-200 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent hover:border-gray-300"
+                className="block py-3 pr-3 pl-10 w-full text-base text-gray-900 dark:text-white bg-white dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent hover:border-gray-300 dark:hover:border-gray-500"
               >
                 <option value="active">Active</option>
                 <option value="inactive">Inactive</option>
@@ -207,12 +207,12 @@ export const SupplierForm = ({ onSubmit, initialData }: SupplierFormProps) => {
         </div>
 
         <div className="mt-4 sm:col-span-2">
-          <label htmlFor="address" className="block mb-2 text-sm font-medium text-gray-700">
+          <label htmlFor="address" className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
             Address
           </label>
           <div className="relative">
             <div className="absolute top-3 left-3">
-              <FiMapPin className="w-5 h-5 text-gray-400" />
+              <FiMapPin className="w-5 h-5 text-gray-400 dark:text-gray-500" />
             </div>
             <textarea
               id="address"
@@ -220,7 +220,7 @@ export const SupplierForm = ({ onSubmit, initialData }: SupplierFormProps) => {
               rows={4}
               value={formData.address}
               onChange={handleChange}
-              className="block py-3 pr-3 pl-10 w-full text-base text-gray-900 bg-white rounded-lg border border-gray-200 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent hover:border-gray-300"
+              className="block py-3 pr-3 pl-10 w-full text-base text-gray-900 dark:text-white bg-white dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent hover:border-gray-300 dark:hover:border-gray-500"
               placeholder="Enter full address"
             />
           </div>
@@ -230,7 +230,7 @@ export const SupplierForm = ({ onSubmit, initialData }: SupplierFormProps) => {
       <div className="flex justify-end mt-12 space-x-6">
         <Link
           href="/suppliers"
-          className="inline-flex items-center px-6 py-3 text-base font-medium text-gray-700 bg-white rounded-lg border border-gray-200 transition-all duration-200 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+          className="inline-flex items-center px-6 py-3 text-base font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600 transition-all duration-200 hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
         >
           Cancel
         </Link>

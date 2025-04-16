@@ -16,21 +16,21 @@ export default function TransactionsPage() {
       <div className="mx-auto max-w-7xl">
         <div className="mb-8">
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Transactions</h1>
-          <p className="mt-2 text-sm text-gray-600">
+          <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
             You can manage your stock movements here.
           </p>
         </div>
 
-        <div className="p-6 mb-8 bg-white rounded-xl border border-gray-100 shadow-sm">
+        <div className="p-6 mb-8 bg-white rounded-xl border border-gray-100 shadow-sm dark:bg-gray-800 dark:border-gray-700">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-center space-x-4">
-              <div className="flex justify-center items-center w-10 h-10 bg-blue-50 rounded-lg">
-                <FiFilter className="w-5 h-5 text-blue-600" />
+              <div className="flex justify-center items-center w-10 h-10 bg-blue-50 rounded-lg dark:bg-blue-900/30">
+                <FiFilter className="w-5 h-5 text-blue-600 dark:text-blue-400" />
               </div>
               <select
                 value={selectedType}
                 onChange={(e) => setSelectedType(e.target.value as 'all' | 'incoming' | 'outgoing')}
-                className="block w-full sm:w-64 px-4 py-2.5 text-base text-gray-700 bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 hover:border-gray-300"
+                className="block w-full sm:w-64 px-4 py-2.5 text-base text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 hover:border-gray-300 dark:hover:border-gray-500"
               >
                 <option value="all">All Transactions</option>
                 <option value="incoming">Incoming Stock</option>

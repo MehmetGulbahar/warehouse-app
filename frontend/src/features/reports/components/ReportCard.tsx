@@ -25,7 +25,7 @@ export const ReportCard = ({ report }: ReportCardProps) => {
     const min = Math.min(...values);
     const range = max - min;
     
-    // Her bir değer için bar yüksekliği hesaplayalım (0-100% arasında)
+
     const normalizedValues = values.map(val => 
       range > 0 ? ((val - min) / range) * 100 : 50
     );
@@ -37,9 +37,9 @@ export const ReportCard = ({ report }: ReportCardProps) => {
             key={index} 
             className="flex-1 mx-0.5 rounded-t-md"
             style={{ 
-              height: `${Math.max(10, height)}%`, // Minimum 10% yükseklik
+              height: `${Math.max(10, height)}%`, 
               backgroundColor: trendColor,
-              opacity: 0.7 + (index / (normalizedValues.length * 2)), // Soldan sağa hafif opaklık artışı
+              opacity: 0.7 + (index / (normalizedValues.length * 2)), 
               minWidth: '4px'
             }}
           />
@@ -49,9 +49,9 @@ export const ReportCard = ({ report }: ReportCardProps) => {
   };
 
   return (
-    <div className="p-6 bg-white rounded-xl border border-gray-100 shadow-sm transition-shadow duration-200 hover:shadow-md">
+    <div className="p-6 bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm transition-shadow duration-200 hover:shadow-md">
       <div className="flex justify-between items-center mb-4">
-        <h3 className="text-lg font-medium text-gray-900">{report.title}</h3>
+        <h3 className="text-lg font-medium text-gray-900 dark:text-white">{report.title}</h3>
         <div className={`flex items-center ${report.trend === 'up' ? 'text-emerald-500' : 'text-rose-500'}`}>
           {report.trend === 'up' ? (
             <FiTrendingUp className="w-5 h-5" />
@@ -64,7 +64,7 @@ export const ReportCard = ({ report }: ReportCardProps) => {
         </div>
       </div>
       
-      <div className="mb-2 text-3xl font-semibold text-gray-900">
+      <div className="mb-2 text-3xl font-semibold text-gray-900 dark:text-white">
         {formatValue(report.value)}
       </div>
 
@@ -75,7 +75,7 @@ export const ReportCard = ({ report }: ReportCardProps) => {
       {report.chartData && (
         <div className="flex justify-between px-1 mt-1">
           {report.chartData.labels.map((label, index) => (
-            <div key={index} className="text-xs text-gray-400 flex-1 text-center mx-0.5 truncate">
+            <div key={index} className="text-xs text-gray-400 dark:text-gray-500 flex-1 text-center mx-0.5 truncate">
               {label}
             </div>
           ))}
