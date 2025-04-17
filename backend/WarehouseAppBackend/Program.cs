@@ -82,10 +82,8 @@ namespace WarehouseAppBackend
             builder.Services.AddScoped<ITokenService, TokenService>();
             builder.Services.AddScoped<IEmailTemplateService, EmailTemplateService>();
 
-            // Register Inventory Services
             builder.Services.AddScoped<IInventoryRepository, InventoryRepository>();
             builder.Services.AddScoped<IInventoryService, InventoryService>();
-
             builder.Services.AddScoped<ISupplierService, SupplierService>();
 
             builder.Services.AddEndpointsApiExplorer();
@@ -96,7 +94,6 @@ namespace WarehouseAppBackend
 
             var app = builder.Build();
 
-            // Exception handling middleware
             app.Use(async (context, next) =>
             {
                 try
@@ -119,6 +116,22 @@ namespace WarehouseAppBackend
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
+
+                using (var scope = app.Services.CreateScope())
+                {
+                    var services = scope.ServiceProvider;
+                    try
+                    {
+                        var context = services.GetRequiredService<ApplicationDbContext>();
+                        await context.Database.EnsureCreatedAsync();
+                        await context.Database.MigrateAsync();
+                        Console.WriteLine("Database created and migrated successfully.");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Error occurred while creating database: {ex.Message}");
+                    }
+                }
             }
 
             app.UseHttpsRedirection();
@@ -146,4 +159,3 @@ namespace WarehouseAppBackend
         }
     }
 }
-

@@ -52,3 +52,4 @@ volumes:
 networks:
   warehouse-network:
     driver: bridge
+    
