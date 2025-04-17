@@ -86,6 +86,8 @@ namespace WarehouseAppBackend
             builder.Services.AddScoped<IInventoryRepository, InventoryRepository>();
             builder.Services.AddScoped<IInventoryService, InventoryService>();
 
+            builder.Services.AddScoped<ISupplierService, SupplierService>();
+
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(c =>
             {

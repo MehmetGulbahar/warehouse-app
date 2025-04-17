@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 
 export interface Supplier {
   id: string;
@@ -28,11 +28,160 @@ export const useSuppliers = () => {
     sortOrder: 'asc',
   });
 
-  const [loading] = useState(false);
-  const [error] = useState<string | null>(null);
+  const [supplierData, setSupplierData] = useState<Supplier[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const updateFilters = (newFilters: Partial<SupplierFilters>) => {
     setFilters(prev => ({ ...prev, ...newFilters }));
+  };
+  
+  const getSuppliers = async () => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const response = await fetch('http://localhost:5210/api/supplier', {
+        method: 'GET',
+        credentials: 'include',
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to fetch suppliers');
+      }
+
+      const data = await response.json();
+      setSupplierData(data);
+      return data;
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An error occurred');
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  };
+  
+  useEffect(() => {
+    getSuppliers().catch(err => {
+      console.error('Error fetching suppliers:', err);
+    });
+  }, []);
+
+  const refreshSuppliers = () => {
+    return getSuppliers();
+  };
+  
+  const createSupplier = async (supplierData: Omit<Supplier, 'id' | 'createdAt' | 'updatedAt'>) => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const response = await fetch('http://localhost:5210/api/supplier', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify(supplierData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to create supplier');
+      }
+
+      const data = await response.json();
+      await refreshSuppliers(); 
+      return data;
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An error occurred');
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const updateSupplier = async (id: string, supplierData: Partial<Supplier>) => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const response = await fetch(`http://localhost:5210/api/supplier/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify(supplierData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to update supplier');
+      }
+
+      const data = await response.json();
+      await refreshSuppliers(); 
+      return data;
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An error occurred');
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const deleteSupplier = async (id: string) => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const response = await fetch(`http://localhost:5210/api/supplier/${id}`, {
+        method: 'DELETE',
+        credentials: 'include',
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to delete supplier');
+      }
+
+      await refreshSuppliers(); 
+      return true;
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An error occurred');
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const searchSuppliers = async () => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const response = await fetch(
+        `http://localhost:5210/api/supplier/search?searchTerm=${filters.search}&status=${filters.status}`,
+        {
+          credentials: 'include',
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to fetch suppliers');
+      }
+
+      const data = await response.json();
+      setSupplierData(data); 
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An error occurred');
+      throw err;
+    } finally {
+      setLoading(false);
+    }
   };
 
   const mockSuppliers: Supplier[] = [
@@ -74,8 +223,9 @@ export const useSuppliers = () => {
     },
   ];
 
-  const filteredSuppliers = useMemo(() => {
-    let result = [...mockSuppliers];
+  const suppliers = useMemo(() => {
+    const sourceData = supplierData.length > 0 ? supplierData : mockSuppliers;
+    let result = [...sourceData];
 
     if (filters.search) {
       const searchLower = filters.search.toLowerCase();
@@ -100,13 +250,19 @@ export const useSuppliers = () => {
     });
 
     return result;
-  }, [filters]);
+  }, [filters, supplierData]);
 
   return {
     filters,
     updateFilters,
-    suppliers: filteredSuppliers,
+    createSupplier,
+    updateSupplier, 
+    deleteSupplier,
+    searchSuppliers,
+    getSuppliers,
+    refreshSuppliers,
+    suppliers,
     loading,
     error,
   };
-}; 
+};

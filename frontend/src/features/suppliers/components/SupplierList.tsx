@@ -17,7 +17,7 @@ export const SupplierList = ({
 }: SupplierListProps) => {
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm">
+    <div className="bg-white rounded-xl border border-gray-100 shadow-sm dark:bg-gray-800 dark:border-gray-700">
       <div className="p-6 border-b border-gray-100 dark:border-gray-700">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex-1">
@@ -58,21 +58,21 @@ export const SupplierList = ({
         <table className="w-full divide-y divide-gray-200 dark:divide-gray-700">
           <thead className="bg-gray-50 dark:bg-gray-700">
             <tr>
-              <th className="px-6 py-4 text-xs font-medium tracking-wider text-left text-gray-500 dark:text-gray-300 uppercase">
+              <th className="px-6 py-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-gray-300">
                 Supplier Name
               </th>
-              <th className="px-6 py-4 text-xs font-medium tracking-wider text-left text-gray-500 dark:text-gray-300 uppercase">
+              <th className="px-6 py-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-gray-300">
                 Contact
               </th>
-              <th className="px-6 py-4 text-xs font-medium tracking-wider text-left text-gray-500 dark:text-gray-300 uppercase">
+              <th className="px-6 py-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-gray-300">
                 Status
               </th>
-              <th className="px-6 py-4 text-xs font-medium tracking-wider text-left text-gray-500 dark:text-gray-300 uppercase">
+              <th className="px-6 py-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-gray-300">
                 Created At
               </th>
             </tr>
           </thead>
-          <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+          <tbody className="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
             {suppliers.map((supplier) => (
               <tr
                 key={supplier.id}
@@ -98,7 +98,7 @@ export const SupplierList = ({
                     {supplier.status === 'active' ? 'Active' : 'Inactive'}
                   </span>
                 </td>
-                <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-400 whitespace-nowrap">
+                <td className="px-6 py-4 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
                   {new Date(supplier.createdAt).toLocaleDateString('tr-TR')}
                 </td>
               </tr>

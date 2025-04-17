@@ -12,9 +12,22 @@ public class ApplicationDbContext : IdentityDbContext<User>
     }
 
     public DbSet<InventoryItem> InventoryItems { get; set; }
+    public DbSet<Supplier> Suppliers { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
+
+        builder.Entity<Supplier>()
+            .HasIndex(s => s.Email)
+            .IsUnique();
+
+        builder.Entity<Supplier>()
+            .HasIndex(s => s.TaxNumber)
+            .IsUnique();
+
+        builder.Entity<InventoryItem>()
+            .Property(i => i.Price)
+            .HasPrecision(18, 2);
     }
 }
