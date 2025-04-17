@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useInventory } from '../hooks/useInventory'
-import { FiEdit2, FiTrash2, FiEye, FiPackage, FiBox, FiTruck, FiDollarSign, FiAlertCircle } from 'react-icons/fi'
+import { FiEdit2, FiTrash2, FiPackage, FiBox, FiTruck, FiDollarSign, FiAlertCircle } from 'react-icons/fi'
 import { useRouter } from 'next/navigation'
 import InventoryFilters from './InventoryFilters'
 
@@ -172,13 +172,6 @@ export default function InventoryList() {
                   Last updated: {new Date(item.lastUpdated).toLocaleDateString('tr-TR')}
                 </div>
                 <div className="flex space-x-4">
-                  <button
-                    onClick={() => router.push(`/inventory/edit/${item.id}`)}
-                    className="p-3 text-blue-500 transition-colors rounded-lg hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700"
-                    title="View Details"
-                  >
-                    <FiEye className="w-6 h-6" />
-                  </button>
                   <button
                     onClick={() => router.push(`/inventory/${item.id}`)}
                     className="p-3 text-gray-500 transition-colors rounded-lg hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700"
