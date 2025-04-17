@@ -23,4 +23,5 @@ project.lock.json
 .docker/
 docker-compose.override.yml
 
-**/appsettings.json
+# App Settings
+backend/WarehouseAppBackend/appsettings.json
