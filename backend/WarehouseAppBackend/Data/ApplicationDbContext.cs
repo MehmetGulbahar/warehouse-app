@@ -13,6 +13,7 @@ public class ApplicationDbContext : IdentityDbContext<User>
 
     public DbSet<InventoryItem> InventoryItems { get; set; }
     public DbSet<Supplier> Suppliers { get; set; }
+    public DbSet<Transaction> Transactions { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -28,6 +29,10 @@ public class ApplicationDbContext : IdentityDbContext<User>
 
         builder.Entity<InventoryItem>()
             .Property(i => i.Price)
+            .HasPrecision(18, 2);
+            
+        builder.Entity<Transaction>()
+            .Property(t => t.Price)
             .HasPrecision(18, 2);
     }
 }

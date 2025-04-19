@@ -12,7 +12,7 @@ export default function TransactionsPage() {
   const filteredTransactions = filterTransactions(selectedType);
 
   return (
-    <div className="px-4 py-8 min-h-screen sm:px-6 lg:px-8">
+    <div className="min-h-screen px-4 py-8 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="mb-8">
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Transactions</h1>
@@ -21,10 +21,10 @@ export default function TransactionsPage() {
           </p>
         </div>
 
-        <div className="p-6 mb-8 bg-white rounded-xl border border-gray-100 shadow-sm dark:bg-gray-800 dark:border-gray-700">
+        <div className="p-6 mb-8 border border-gray-100 shadow-sm rounded-xl dark:bg-gray-800 dark:border-gray-700">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-center space-x-4">
-              <div className="flex justify-center items-center w-10 h-10 bg-blue-50 rounded-lg dark:bg-blue-900/30">
+              <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-blue-50 dark:bg-blue-900/30">
                 <FiFilter className="w-5 h-5 text-blue-600 dark:text-blue-400" />
               </div>
               <select

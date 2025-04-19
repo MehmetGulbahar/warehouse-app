@@ -8,8 +8,8 @@ namespace WarehouseAppBackend.Services.Interfaces
     {
         Task<List<InventoryItem>> GetAllItemsAsync();
         Task<InventoryItem> GetItemByIdAsync(string id);
-        Task<InventoryItem> CreateItemAsync(InventoryItem item);
-        Task<InventoryItem> UpdateItemAsync(InventoryItem item);
+        Task<InventoryItem> CreateItemAsync(InventoryItem item, string supplierName = null);
+        Task<InventoryItem> UpdateItemAsync(InventoryItem item, InventoryItem oldItem = null);
         Task<bool> DeleteItemAsync(string id);
         Task<List<InventoryItem>> SearchItemsAsync(string searchTerm, string category, string supplier, string status);
     }

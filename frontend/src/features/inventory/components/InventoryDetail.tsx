@@ -13,7 +13,6 @@ export default function InventoryDetail() {
   const [error, setError] = useState<string | null>(null)
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
 
-  // Stok durumu için renk sınıfları
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'in-stock':
@@ -27,21 +26,19 @@ export default function InventoryDetail() {
     }
   }
 
-  // Stok durumu için Türkçe metin
   const getStatusText = (status: string) => {
     switch (status) {
       case 'in-stock':
-        return 'Stokta'
+        return 'In Stock'
       case 'low-stock':
-        return 'Az Stok'
+        return 'Low Stock'
       case 'out-of-stock':
-        return 'Stok Yok'
+        return 'Out of Stock'
       default:
         return status
     }
   }
 
-  // Ürün verilerini yükle
   useEffect(() => {
     const fetchItem = async () => {
       try {
@@ -97,15 +94,15 @@ export default function InventoryDetail() {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-64">
-        <div className="w-12 h-12 rounded-full border-t-2 border-b-2 border-blue-500 animate-spin"></div>
+      <div className="flex items-center justify-center h-64">
+        <div className="w-12 h-12 border-t-2 border-b-2 border-blue-500 rounded-full animate-spin"></div>
       </div>
     )
   }
 
   if (error) {
     return (
-      <div className="relative px-4 py-3 text-red-700 bg-red-100 rounded border border-red-400" role="alert">
+      <div className="relative px-4 py-3 text-red-700 bg-red-100 border border-red-400 rounded" role="alert">
         <strong className="font-bold">Error!</strong>
         <span className="block sm:inline"> {error}</span>
       </div>
@@ -123,7 +120,7 @@ export default function InventoryDetail() {
   return (
     <div className="space-y-6">
       {/* Başlık ve İşlem Butonları */}
-      <div className="flex justify-between items-center">
+      <div className="flex items-center justify-between">
         <div className="flex items-center space-x-2">
           <button 
             onClick={() => router.push('/inventory')}
@@ -138,14 +135,14 @@ export default function InventoryDetail() {
             onClick={() => router.push(`/inventory/edit/${item.id}`)}
             className="flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
           >
-            <FiEdit2 className="mr-2 w-4 h-4" />
+            <FiEdit2 className="w-4 h-4 mr-2" />
             Edit
           </button>
           <button 
             onClick={handleDeleteClick}
             className="flex items-center px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
           >
-            <FiTrash2 className="mr-2 w-4 h-4" />
+            <FiTrash2 className="w-4 h-4 mr-2" />
             Delete
           </button>
         </div>
@@ -215,8 +212,8 @@ export default function InventoryDetail() {
 
       {/* Silme Onay Modalı */}
       {isDeleteModalOpen && (
-        <div className="flex fixed inset-0 z-50 justify-center items-center bg-black bg-opacity-50">
-          <div className="p-6 w-full max-w-md bg-white rounded-lg dark:bg-gray-800">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="w-full max-w-md p-6 bg-white rounded-lg dark:bg-gray-800">
             <h3 className="mb-4 text-lg font-medium text-gray-900 dark:text-white">Delete Product</h3>
             <p className="mb-6 text-gray-500 dark:text-gray-400">
               <span className="font-medium">{item.name}</span> product you want to delete? This action cannot be undone.
@@ -224,7 +221,7 @@ export default function InventoryDetail() {
             <div className="flex justify-end space-x-3">
               <button
                 onClick={() => setIsDeleteModalOpen(false)}
-                className="px-4 py-2 text-sm font-medium text-gray-700 bg-white rounded-md border border-gray-300 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 dark:hover:bg-gray-600"
+                className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 dark:hover:bg-gray-600"
               >
                 Cancel
               </button>

@@ -3,12 +3,15 @@ import { useState, useEffect } from 'react';
 export interface Transaction {
   id: string;
   type: 'incoming' | 'outgoing';
+  productId: string;
   productName: string;
+  productSku: string;
   quantity: number;
-  date: string;
+  price: number;
+  partyName: string;
+  transactionDate: string;
   status: 'completed' | 'pending' | 'cancelled';
-  supplier?: string;
-  customer?: string;
+  notes?: string;
 }
 
 export const useTransactions = () => {
@@ -16,58 +19,88 @@ export const useTransactions = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    // TODO: API çağrısı yapılacak
-    const fetchTransactions = async () => {
-      try {
-        const mockTransactions: Transaction[] = [
-          {
-            id: '1',
-            type: 'incoming',
-            productName: 'Laptop',
-            quantity: 10,
-            date: '2024-03-20',
-            status: 'completed',
-            supplier: 'ABC Electronics'
-          },
-          {
-            id: '2',
-            type: 'outgoing',
-            productName: 'Mouse',
-            quantity: 5,
-            date: '2024-03-19',
-            status: 'pending',
-            customer: 'XYZ Company'
-          },
-          {
-            id: '3',
-            type: 'outgoing',
-            productName: 'Keyboard',
-            quantity: 3,
-            date: '2024-03-18',
-            status: 'completed',
-            customer: 'Tech Solutions'
-          },
-          {
-            id: '4',
-            type: 'incoming',
-            productName: 'Monitor',
-            quantity: 8,
-            date: '2024-03-17',
-            status: 'completed',
-            supplier: 'Display Pro'
-          }
-        ];
-        setTransactions(mockTransactions);
-      } catch (err) {
-        setError(`Error loading transactions: ${err instanceof Error ? err.message : 'Unknown error'}`);
-      } finally {
-        setLoading(false);
+  const fetchTransactions = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch('http://localhost:5210/api/transaction', {
+        credentials: 'include'
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to load transactions');
       }
-    };
+      
+      const data = await response.json();
+      setTransactions(data);
+      setError(null);
+    } catch (err) {
+      setError(`Error loading transactions: ${err instanceof Error ? err.message : 'Unknown error'}`);
+      console.error('Transaction loading error:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchTransactions();
   }, []);
+
+  const getTransactionsByProductId = async (productId: string) => {
+    try {
+      setLoading(true);
+      const response = await fetch(`http://localhost:5210/api/transaction/product/${productId}`, {
+        credentials: 'include'
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to load product transactions');
+      }
+      
+      const data = await response.json();
+      return data;
+    } catch (err) {
+      setError(`Error loading product transactions: ${err instanceof Error ? err.message : 'Unknown error'}`);
+      console.error('Product transaction loading error:', err);
+      return [];
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const createTransaction = async (transaction: Omit<Transaction, 'id'>) => {
+    try {
+      const response = await fetch('http://localhost:5210/api/transaction', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+        body: JSON.stringify(transaction)
+      });
+      
+      if (!response.ok) {
+        // Try to get detailed error message from response
+        const errorData = await response.json().catch(() => ({}));
+        const errorMsg = errorData.message || errorData.title || errorData.detail || 'Failed to create transaction';
+        console.error('Transaction error response:', errorData);
+        
+        // Log the detailed validation errors if they exist
+        if (errorData.errors) {
+          console.error('Validation errors:', errorData.errors);
+        }
+        
+        throw new Error(errorMsg);
+      }
+      
+      const data = await response.json();
+      setTransactions(prev => [...prev, data]);
+      return data;
+    } catch (err) {
+      setError(`Error creating transaction: ${err instanceof Error ? err.message : 'Unknown error'}`);
+      console.error('Transaction creation error:', err);
+      throw err;
+    }
+  };
 
   const filterTransactions = (type: 'incoming' | 'outgoing' | 'all') => {
     if (type === 'all') return transactions;
@@ -78,6 +111,9 @@ export const useTransactions = () => {
     transactions,
     loading,
     error,
+    fetchTransactions,
+    getTransactionsByProductId,
+    createTransaction,
     filterTransactions
   };
-}; 
+};

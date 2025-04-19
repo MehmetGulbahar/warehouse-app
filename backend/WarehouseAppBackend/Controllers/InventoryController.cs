@@ -59,7 +59,6 @@ namespace WarehouseAppBackend.Controllers
         {
             try
             {
-                // Gelen veriyi logla
                 Console.WriteLine($"Received item: {System.Text.Json.JsonSerializer.Serialize(item)}");
 
                 if (item == null)
@@ -67,7 +66,6 @@ namespace WarehouseAppBackend.Controllers
                     return BadRequest(new { message = "Product information cannot be empty" });
                 }
 
-                // Model validasyonunu kontrol et
                 if (!ModelState.IsValid)
                 {
                     var errors = ModelState.Values
@@ -103,11 +101,13 @@ namespace WarehouseAppBackend.Controllers
                     return BadRequest(new { message = "ID mismatch" });
                 }
 
-                var updatedItem = await _inventoryService.UpdateItemAsync(item);
-                if (updatedItem == null)
+                var existingItem = await _inventoryService.GetItemByIdAsync(id);
+                if (existingItem == null)
                 {
-                    return NotFound();
+                    return NotFound(new { message = "Item not found" });
                 }
+
+                var updatedItem = await _inventoryService.UpdateItemAsync(item, existingItem);
                 return Ok(updatedItem);
             }
             catch (ArgumentException ex)
