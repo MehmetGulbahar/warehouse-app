@@ -15,29 +15,29 @@ export const SupplierDetail = ({
   onDelete,
 }: SupplierDetailProps) => {
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm">
+    <div className="border border-gray-100 shadow-sm  dark:bg-gray-800 rounded-xl dark:border-gray-700">
       <div className="p-6 border-b border-gray-100 dark:border-gray-700">
-        <div className="flex justify-between items-center">
+        <div className="flex items-center justify-between">
           <button
             onClick={onBack}
             className="inline-flex items-center text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-300"
           >
-            <FiArrowLeft className="mr-2 w-5 h-5" />
+            <FiArrowLeft className="w-5 h-5 mr-2" />
             Back
           </button>
           <div className="flex items-center space-x-4">
             <button
               onClick={() => onEdit(supplier)}
-              className="inline-flex items-center px-4 py-2 text-sm font-medium text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 rounded-lg transition-all duration-200 hover:bg-blue-100 dark:hover:bg-blue-900/50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              className="inline-flex items-center px-4 py-2 text-sm font-medium text-blue-600 transition-all duration-200 rounded-lg dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 hover:bg-blue-100 dark:hover:bg-blue-900/50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
             >
-              <FiEdit2 className="mr-2 w-4 h-4" />
+              <FiEdit2 className="w-4 h-4 mr-2" />
               Edit
             </button>
             <button
               onClick={() => onDelete(supplier)}
-              className="inline-flex items-center px-4 py-2 text-sm font-medium text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/30 rounded-lg transition-all duration-200 hover:bg-red-100 dark:hover:bg-red-900/50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+              className="inline-flex items-center px-4 py-2 text-sm font-medium text-red-600 transition-all duration-200 rounded-lg dark:text-red-400 bg-red-50 dark:bg-red-900/30 hover:bg-red-100 dark:hover:bg-red-900/50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
             >
-              <FiTrash2 className="mr-2 w-4 h-4" />
+              <FiTrash2 className="w-4 h-4 mr-2" />
               Delete
             </button>
           </div>

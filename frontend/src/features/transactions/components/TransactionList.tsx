@@ -41,7 +41,7 @@ export function TransactionList({ transactions, loading, error }: TransactionLis
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold">Transaction History</h2>
+        <h2 className="text-2xl font-bold dark:text-white">Transaction History</h2>
         <div className="flex space-x-2">
           <Button
             variant={filter === 'all' ? 'default' : 'outline'}
@@ -77,11 +77,11 @@ export function TransactionList({ transactions, loading, error }: TransactionLis
           <div className="w-8 h-8 border-b-2 rounded-full animate-spin border-primary"></div>
         </div>
       ) : error ? (
-        <div className="p-4 text-red-700 border border-red-200 rounded-md bg-red-50">
+        <div className="p-4 text-red-700 border border-red-200 rounded-md dark:text-red-400 dark:border-red-800 bg-red-50 dark:bg-red-900/30">
           {error}
         </div>
       ) : (
-        <div className="border rounded-md dark:bg-gray-700">
+        <div className="border rounded-md dark:border-gray-700 dark:bg-gray-800">
           <Table>
             <TableHeader>
               <TableRow>
@@ -129,6 +129,13 @@ export function TransactionList({ transactions, loading, error }: TransactionLis
                             : transaction.status === 'pending'
                             ? 'secondary'
                             : 'destructive'
+                        }
+                        className={
+                          transaction.status === 'completed'
+                            ? 'text-green-500 dark:text-green-400'
+                            : transaction.status === 'pending'
+                            ? 'text-yellow-500 dark:text-yellow-400'
+                            : 'text-red-500 dark:text-red-400'
                         }
                       >
                         {transaction.status}

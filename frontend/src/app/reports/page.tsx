@@ -9,22 +9,22 @@ export default function ReportsPage() {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-64">
-        <div className="w-12 h-12 rounded-full border-b-2 border-blue-500 animate-spin"></div>
+      <div className="flex items-center justify-center h-64">
+        <div className="w-12 h-12 border-b-2 border-blue-500 rounded-full animate-spin"></div>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="p-4 text-red-800 bg-red-50 rounded-lg border border-red-200">
+      <div className="p-4 text-red-800 border border-red-200 rounded-lg bg-red-50">
         {error}
       </div>
     );
   }
 
   return (
-    <div className="px-4 py-8 min-h-screen bg-gray-50 dark:bg-gray-900 sm:px-6 lg:px-8">
+    <div className="min-h-screen px-4 py-8 dark:bg-gray-900 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="mb-8">
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Reports</h1>

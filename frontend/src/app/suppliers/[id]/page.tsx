@@ -70,7 +70,7 @@ export default function SupplierDetailPage({ params }: { params: Promise<PagePar
         </div>
       </div>
 
-      <div className="p-6 bg-white rounded-lg shadow">
+      <div className="p-6 rounded-lg shadow dark:bg-gray-700 dark:border-gray-600 dark:text-white">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <div>
             <h2 className="mb-4 text-lg font-semibold">Contact Information</h2>
@@ -114,9 +114,9 @@ export default function SupplierDetailPage({ params }: { params: Promise<PagePar
             </div>
           </div>
 
-          <div className="md:col-span-2">
-            <h2 className="mb-4 text-lg font-semibold">Address</h2>
-            <p className="text-gray-700">{supplier.address}</p>
+          <div className="md:col-span-2 ">
+            <h2 className="mb-4 text-sm text-gray-500">Address</h2>
+            <p className="font-medium text-black text-gray-700 dark:text-white">{supplier.address}</p>
           </div>
         </div>
       </div>

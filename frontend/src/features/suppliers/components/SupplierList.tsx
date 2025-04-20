@@ -54,20 +54,20 @@ export const SupplierList = ({
         </div>
       </div>
 
-      <div className="overflow-x-auto rounded-b-xl">
+      <div className="overflow-x-auto rounded-b-xl ">
         <table className="w-full divide-y divide-gray-200 dark:divide-gray-700">
-          <thead className="bg-gray-50 dark:bg-gray-700 ">
+          <thead className="text-center bg-gray-50 dark:bg-gray-700 ">
             <tr>
-              <th className="px-6 py-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-gray-300">
+              <th className="px-6 py-4 text-xs font-medium tracking-wider text-gray-500 uppercase dark:text-gray-300">
                 Supplier Name
               </th>
-              <th className="px-6 py-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-gray-300">
+              <th className="px-6 py-4 text-xs font-medium tracking-wider text-gray-500 uppercase dark:text-gray-300">
                 Contact
               </th>
-              <th className="px-6 py-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-gray-300">
+              <th className="px-6 py-4 text-xs font-medium tracking-wider text-gray-500 uppercase dark:text-gray-300">
                 Status
               </th>
-              <th className="px-6 py-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-gray-300">
+              <th className="px-6 py-4 text-xs font-medium tracking-wider text-gray-500 uppercase dark:text-gray-300">
                 Created At
               </th>
             </tr>

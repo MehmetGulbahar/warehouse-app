@@ -140,7 +140,6 @@ export function OutgoingTransactionForm({ onSuccess }: OutgoingTransactionFormPr
       
       const transactionId = generateUUID();
       
-      // Calculate the transaction price (price of items being removed)
       const transactionPrice = unitPrice * quantity;
       
       const transactionData: Transaction = {
@@ -150,7 +149,7 @@ export function OutgoingTransactionForm({ onSuccess }: OutgoingTransactionFormPr
         productName: selectedProduct.name,
         productSku: selectedProduct.sku,
         quantity,
-        price: transactionPrice, // Use the calculated price for the transaction
+        price: transactionPrice, 
         partyName: customer,
         transactionDate: formattedDate,
         status: 'completed',
@@ -182,17 +181,17 @@ export function OutgoingTransactionForm({ onSuccess }: OutgoingTransactionFormPr
   };
   
   return (
-    <div className="p-6 bg-white border border-gray-200 rounded-lg shadow-sm">
-      <h2 className="mb-6 text-xl font-bold">Record Outgoing Stock</h2>
+    <div className="p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+      <h2 className="mb-6 text-xl font-bold dark:text-white">Record Outgoing Stock</h2>
       
       {error && (
-        <div className="p-4 mb-6 text-red-700 border border-red-200 rounded-md bg-red-50">
+        <div className="p-4 mb-6 text-red-700 border border-red-200 rounded-md dark:text-red-400 dark:border-red-800 bg-red-50 dark:bg-red-900/30">
           {error}
         </div>
       )}
       
       {success && (
-        <div className="p-4 mb-6 text-green-700 border border-green-200 rounded-md bg-green-50">
+        <div className="p-4 mb-6 text-green-700 border border-green-200 rounded-md dark:text-green-400 dark:border-green-800 bg-green-50 dark:bg-green-900/30">
           Outgoing transaction recorded successfully!
         </div>
       )}
@@ -201,14 +200,14 @@ export function OutgoingTransactionForm({ onSuccess }: OutgoingTransactionFormPr
         <div className="space-y-4">
           {/* Product Selection */}
           <div>
-            <label htmlFor="product" className="block mb-1 text-sm font-medium text-gray-700">
+            <label htmlFor="product" className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300">
               Product <span className="text-red-500">*</span>
             </label>
             <select
               id="product"
               value={selectedProductId}
               onChange={(e) => setSelectedProductId(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border border-gray-300 rounded-md dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
               disabled={loading}
             >
               <option value="">Select a product</option>
@@ -222,16 +221,16 @@ export function OutgoingTransactionForm({ onSuccess }: OutgoingTransactionFormPr
           
           {/* Product Details */}
           {selectedProduct && (
-            <div className="p-4 border border-gray-200 rounded-md bg-gray-50">
-              <p><span className="font-medium">SKU:</span> {selectedProduct.sku}</p>
-              <p><span className="font-medium">Available:</span> {selectedProduct.quantity} units</p>
-              <p><span className="font-medium">Price:</span> ${selectedProduct.price.toFixed(2)}</p>
+            <div className="p-4 border border-gray-200 rounded-md dark:border-gray-700 bg-gray-50 dark:bg-gray-700">
+              <p className="dark:text-gray-200"><span className="font-medium">SKU:</span> {selectedProduct.sku}</p>
+              <p className="dark:text-gray-200"><span className="font-medium">Available:</span> {selectedProduct.quantity} units</p>
+              <p className="dark:text-gray-200"><span className="font-medium">Price:</span> ${selectedProduct.price.toFixed(2)}</p>
             </div>
           )}
           
           {/* Quantity */}
           <div>
-            <label htmlFor="quantity" className="block mb-1 text-sm font-medium text-gray-700">
+            <label htmlFor="quantity" className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300">
               Quantity <span className="text-red-500">*</span>
             </label>
             <input
@@ -241,13 +240,13 @@ export function OutgoingTransactionForm({ onSuccess }: OutgoingTransactionFormPr
               max={selectedProduct?.quantity || 1}
               value={quantity}
               onChange={(e) => setQuantity(parseInt(e.target.value) || 0)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border border-gray-300 rounded-md dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
               disabled={loading}
             />
           </div>
           {/* Price */}
           <div>
-            <label htmlFor="price" className="block mb-1 text-sm font-medium text-gray-700">
+            <label htmlFor="price" className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300">
               Price <span className="text-red-500">*</span>
             </label>
             <input
@@ -256,14 +255,14 @@ export function OutgoingTransactionForm({ onSuccess }: OutgoingTransactionFormPr
               max={selectedProduct?.price || 1}
               value={price}
               onChange={(e) => setPrice(parseInt(e.target.value) || 0)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border border-gray-300 rounded-md dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
               disabled={loading}
             />
           </div>
           
           {/* Customer */}
           <div>
-            <label htmlFor="customer" className="block mb-1 text-sm font-medium text-gray-700">
+            <label htmlFor="customer" className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300">
               Customer <span className="text-red-500">*</span>
             </label>
             <input
@@ -271,7 +270,7 @@ export function OutgoingTransactionForm({ onSuccess }: OutgoingTransactionFormPr
               id="customer"
               value={customer}
               onChange={(e) => setCustomer(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border border-gray-300 rounded-md dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
               placeholder="Enter customer name"
               disabled={loading}
             />
@@ -279,14 +278,14 @@ export function OutgoingTransactionForm({ onSuccess }: OutgoingTransactionFormPr
           
           {/* Reason */}
           <div>
-            <label htmlFor="reason" className="block mb-1 text-sm font-medium text-gray-700">
+            <label htmlFor="reason" className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300">
               Reason <span className="text-red-500">*</span>
             </label>
             <select
               id="reason"
               value={reason}
               onChange={(e) => setReason(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border border-gray-300 rounded-md dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
               disabled={loading}
             >
               <option value="sale">Sale</option>
@@ -300,14 +299,14 @@ export function OutgoingTransactionForm({ onSuccess }: OutgoingTransactionFormPr
           
           {/* Notes */}
           <div>
-            <label htmlFor="notes" className="block mb-1 text-sm font-medium text-gray-700">
+            <label htmlFor="notes" className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300">
               Additional Notes
             </label>
             <textarea
               id="notes"
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border border-gray-300 rounded-md dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
               rows={3}
               placeholder="Enter any additional details"
               disabled={loading}
@@ -316,7 +315,7 @@ export function OutgoingTransactionForm({ onSuccess }: OutgoingTransactionFormPr
           
           {/* Validation error */}
           {validationError && (
-            <div className="p-3 text-sm text-red-700 border border-red-200 rounded-md bg-red-50">
+            <div className="p-3 text-sm text-red-700 border border-red-200 rounded-md dark:text-red-400 dark:border-red-800 bg-red-50 dark:bg-red-900/30">
               {validationError}
             </div>
           )}
