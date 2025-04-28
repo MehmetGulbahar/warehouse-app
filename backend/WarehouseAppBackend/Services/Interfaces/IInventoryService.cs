@@ -12,5 +12,6 @@ namespace WarehouseAppBackend.Services.Interfaces
         Task<InventoryItem> UpdateItemAsync(InventoryItem item, InventoryItem oldItem = null);
         Task<bool> DeleteItemAsync(string id);
         Task<List<InventoryItem>> SearchItemsAsync(string searchTerm, string category, string supplier, string status);
+        Task<int> GetTotalStockCountAsync();
     }
 }

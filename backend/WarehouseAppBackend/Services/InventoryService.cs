@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 using WarehouseAppBackend.Data.Interfaces;
 using WarehouseAppBackend.Models;
 using WarehouseAppBackend.Services.Interfaces;
@@ -94,7 +95,7 @@ namespace WarehouseAppBackend.Services
             }
 
             UpdateStatusBasedOnQuantity(item);
-            
+
             var updatedItem = await _repository.UpdateAsync(item);
 
             int quantityDifference = updatedItem.Quantity - oldItem.Quantity;
@@ -136,7 +137,13 @@ namespace WarehouseAppBackend.Services
         {
             return await _repository.SearchAsync(searchTerm, category, supplier, status);
         }
-        
+
+        public async Task<int> GetTotalStockCountAsync()
+        {
+            var allItems = await _repository.GetAllAsync();
+            return allItems.Sum(item => item.Quantity);
+        }
+
         private void UpdateStatusBasedOnQuantity(InventoryItem item)
         {
             if (item.Quantity == 0)

@@ -84,6 +84,8 @@ namespace WarehouseAppBackend
 
             builder.Services.AddScoped<IInventoryRepository, InventoryRepository>();
             builder.Services.AddScoped<IInventoryService, InventoryService>();
+            builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
+            builder.Services.AddScoped<ITransactionService, TransactionService>();
             builder.Services.AddScoped<ISupplierService, SupplierService>();
 
             builder.Services.AddEndpointsApiExplorer();

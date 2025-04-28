@@ -12,7 +12,7 @@ namespace WarehouseAppBackend.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize] 
+    [Authorize]
     public class InventoryController : ControllerBase
     {
         private readonly IInventoryService _inventoryService;
@@ -149,6 +149,20 @@ namespace WarehouseAppBackend.Controllers
             {
                 var items = await _inventoryService.SearchItemsAsync(searchTerm, category, supplier, status);
                 return Ok(items);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = $"Internal server error: {ex.Message}" });
+            }
+        }
+
+        [HttpGet("totalstock")]
+        public async Task<ActionResult<int>> GetTotalStockCount()
+        {
+            try
+            {
+                var totalStock = await _inventoryService.GetTotalStockCountAsync();
+                return Ok(new { totalStock });
             }
             catch (Exception ex)
             {
