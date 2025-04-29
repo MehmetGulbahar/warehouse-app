@@ -3,7 +3,8 @@
 import { useRouter } from 'next/navigation';
 import { FiArrowLeft, FiEdit, FiTrash2 } from 'react-icons/fi';
 import { useSuppliers, Supplier } from '@/features/suppliers/hooks/useSuppliers';
-import React from 'react';
+import React, { useState } from 'react';
+import DeleteConfirmationModal from '@/components/ui/DeleteConfirmationModal';
 
 type PageParams = {
   id: string;
@@ -11,7 +12,10 @@ type PageParams = {
 
 export default function SupplierDetailPage({ params }: { params: Promise<PageParams> }) {
   const router = useRouter();
-  const { suppliers } = useSuppliers();
+  const { suppliers, deleteSupplier } = useSuppliers();
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [deleteError, setDeleteError] = useState<string | null>(null);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const unwrappedParams = React.use(params);
   const supplierId = unwrappedParams.id;
   
@@ -25,9 +29,29 @@ export default function SupplierDetailPage({ params }: { params: Promise<PagePar
     router.push(`/suppliers/${supplier.id}/edit`);
   };
 
-  const handleDelete = (supplier: Supplier) => {
-    // TODO: Implement delete functionality
-    console.log('Delete supplier:', supplier);
+  const openDeleteModal = () => {
+    setShowDeleteModal(true);
+  };
+
+  const closeDeleteModal = () => {
+    setShowDeleteModal(false);
+  };
+
+  const confirmDelete = async () => {
+    if (!supplier) return;
+    
+    try {
+      setIsDeleting(true);
+      setDeleteError(null);
+      await deleteSupplier(supplier.id);
+      router.push('/suppliers');
+    } catch (error) {
+      setDeleteError(error instanceof Error ? error.message : 'Failed to delete supplier');
+      console.error('Error deleting supplier:', error);
+      setShowDeleteModal(false);
+    } finally {
+      setIsDeleting(false);
+    }
   };
 
   if (!supplier) {
@@ -46,6 +70,22 @@ export default function SupplierDetailPage({ params }: { params: Promise<PagePar
 
   return (
     <div className="p-4">
+      {deleteError && (
+        <div className="p-4 mb-4 text-sm text-white bg-red-500 rounded-md">
+          {deleteError}
+        </div>
+      )}
+      
+      <DeleteConfirmationModal
+        isOpen={showDeleteModal}
+        title="Delete Supplier"
+        message="Are you sure you want to delete the supplier:"
+        itemName={supplier.name}
+        isDeleting={isDeleting}
+        onConfirm={confirmDelete}
+        onCancel={closeDeleteModal}
+      />
+      
       <div className="flex items-center mb-6">
         <button
           onClick={handleBack}
@@ -58,12 +98,14 @@ export default function SupplierDetailPage({ params }: { params: Promise<PagePar
           <button
             onClick={() => handleEdit(supplier)}
             className="p-2 text-blue-600 rounded-full hover:bg-blue-50"
+            disabled={isDeleting}
           >
             <FiEdit className="w-5 h-5" />
           </button>
           <button
-            onClick={() => handleDelete(supplier)}
+            onClick={openDeleteModal}
             className="p-2 text-red-600 rounded-full hover:bg-red-50"
+            disabled={isDeleting}
           >
             <FiTrash2 className="w-5 h-5" />
           </button>
@@ -122,4 +164,4 @@ export default function SupplierDetailPage({ params }: { params: Promise<PagePar
       </div>
     </div>
   );
-} 
+}
