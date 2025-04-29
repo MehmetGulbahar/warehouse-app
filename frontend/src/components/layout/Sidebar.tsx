@@ -47,7 +47,8 @@ export default function Sidebar() {
     setIsCollapsed(!isCollapsed)
   }
   
-  const toggleExpand = (name: string) => {
+  const toggleExpand = (name: string, e: React.MouseEvent) => {
+    e.stopPropagation()
     setExpandedItem(prev => prev === name ? null : name)
   }
 
@@ -84,13 +85,11 @@ export default function Sidebar() {
                     isActive
                       ? 'text-white bg-gradient-to-r to-blue-600 shadow-sm from-primary'
                       : 'text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700'
-                  } cursor-pointer`}
-                  onClick={() => item.submenu ? toggleExpand(item.name) : null}
+                  }`}
                 >
                   <Link 
                     href={item.href}
                     className="flex items-center flex-grow"
-                    onClick={(e) => item.submenu ? e.preventDefault() : null}
                   >
                     <span 
                       className={`${isCollapsed ? 'w-10 h-10' : 'w-10 h-10'} flex items-center justify-center ${isActive ? 'text-white' : 'text-gray-500 dark:text-gray-400'}`}
@@ -100,15 +99,19 @@ export default function Sidebar() {
                     {!isCollapsed && <span className="ml-3">{item.name}</span>}
                   </Link>
                   {!isCollapsed && item.submenu && (
-                    <span className="ml-auto">
-                      {isExpanded ? <IoIosArrowUp className="text-white" /> : <IoIosArrowDown />}
-                    </span>
+                    <button
+                      onClick={(e) => toggleExpand(item.name, e)}
+                      className="ml-auto focus:outline-none"
+                      aria-label={isExpanded ? "Collapse submenu" : "Expand submenu"}
+                    >
+                      {isExpanded ? <IoIosArrowUp className={isActive ? "text-white" : ""} /> : <IoIosArrowDown className={isActive ? "text-white" : ""} />}
+                    </button>
                   )}
                 </div>
                 
                 {/* Submenu */}
                 {!isCollapsed && item.submenu && isExpanded && (
-                  <div className="ml-6 mt-1 mb-1 space-y-1">
+                  <div className="mt-1 mb-1 ml-6 space-y-1">
                     {item.submenu.map(subItem => {
                       const isSubActive = pathname === subItem.href
                       return (
