@@ -160,5 +160,19 @@ namespace WarehouseAppBackend.Controllers
                 return StatusCode(500, new { message = $"Internal server error: {ex.Message}" });
             }
         }
+        
+        [HttpGet("summary")]
+        public async Task<ActionResult<Dictionary<string, int>>> GetStockSummary()
+        {
+            try
+            {
+                var summary = await _transactionService.GetStockSummaryAsync();
+                return Ok(summary);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = $"Internal server error: {ex.Message}" });
+            }
+        }
     }
 }

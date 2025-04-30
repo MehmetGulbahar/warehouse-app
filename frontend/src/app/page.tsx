@@ -3,9 +3,13 @@
 import { useState, useEffect } from 'react';
 
 export default function Home() {
-const [totalStock, setTotalStock] = useState<number | null>(null);
+  const [totalStock, setTotalStock] = useState<number | null>(null);
+  const [incomingStock, setIncomingStock] = useState<number | null>(null);
+  const [outgoingStock, setOutgoingStock] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isSummaryLoading, setIsSummaryLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [summaryError, setSummaryError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchTotalStock = async () => {
@@ -23,7 +27,6 @@ const [totalStock, setTotalStock] = useState<number | null>(null);
         }
         
         const data = await response.json();
-        console.log('Total stock data:', data);
         
         const stockValue = typeof data === 'number' 
           ? data 
@@ -38,14 +41,40 @@ const [totalStock, setTotalStock] = useState<number | null>(null);
       }
     };
 
+    const fetchTransactionSummary = async () => {
+      try {
+        setIsSummaryLoading(true);
+        const response = await fetch('http://localhost:5210/api/Transaction/summary', {
+          method: 'GET',
+          credentials: 'include',
+        });
+        
+        if (!response.ok) {
+          throw new Error('Failed to fetch transaction summary');
+        }
+        
+        const data = await response.json();
+        
+        setIncomingStock(data.totalIncoming);
+        setOutgoingStock(data.totalOutgoing);
+      } catch (err) {
+        setSummaryError(err instanceof Error ? err.message : 'An unknown error occurred');
+        console.error('Error fetching transaction summary:', err);
+      } finally {
+        setIsSummaryLoading(false);
+      }
+    };
+
     fetchTotalStock();
+    fetchTransactionSummary();
   }, []);
+
   return (
     <div className="space-y-6">
       <h1 className="text-2xl font-bold">Dashboard</h1>
       
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-     {/* Stok Durumu */}
+        {/* Stok Durumu */}
         <div className="card">
           <h3 className="mb-2 text-lg font-medium">Total Stock</h3>
           {isLoading ? (
@@ -57,17 +86,28 @@ const [totalStock, setTotalStock] = useState<number | null>(null);
           )}
         </div>
 
-
         {/* Gelen Stoklar */}
         <div className="card">
           <h3 className="mb-2 text-lg font-medium">Incoming Stock</h3>
-          <p className="text-3xl font-bold text-success">56</p>
+          {isSummaryLoading ? (
+            <p className="text-3xl font-bold text-success">Loading...</p>
+          ) : summaryError ? (
+            <p className="text-sm text-danger">Error: {summaryError}</p>
+          ) : (
+            <p className="text-3xl font-bold text-success">{incomingStock?.toLocaleString() || '0'}</p>
+          )}
         </div>
 
         {/* Çıkan Stoklar */}
         <div className="card">
           <h3 className="mb-2 text-lg font-medium">Outgoing Stock</h3>
-          <p className="text-3xl font-bold text-warning">43</p>
+          {isSummaryLoading ? (
+            <p className="text-3xl font-bold text-warning">Loading...</p>
+          ) : summaryError ? (
+            <p className="text-sm text-danger">Error: {summaryError}</p>
+          ) : (
+            <p className="text-3xl font-bold text-warning">{outgoingStock?.toLocaleString() || '0'}</p>
+          )}
         </div>
 
         {/* Kritik Stoklar */}

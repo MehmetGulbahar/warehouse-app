@@ -24,5 +24,9 @@ namespace WarehouseAppBackend.Services.Interfaces
             string partyName, 
             string status = "completed", 
             string notes = null);
+            
+        Task<int> GetTotalIncomingQuantityAsync();
+        Task<int> GetTotalOutgoingQuantityAsync();
+        Task<Dictionary<string, int>> GetStockSummaryAsync();
     }
 }

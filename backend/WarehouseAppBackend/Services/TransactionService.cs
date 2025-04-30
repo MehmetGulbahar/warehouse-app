@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 using WarehouseAppBackend.Data.Interfaces;
 using WarehouseAppBackend.Models;
 using WarehouseAppBackend.Services.Interfaces;
@@ -86,6 +87,29 @@ namespace WarehouseAppBackend.Services
             ValidateTransaction(transaction);
 
             return await _repository.CreateAsync(transaction);
+        }
+
+        public async Task<int> GetTotalIncomingQuantityAsync()
+        {
+            var incomingTransactions = await _repository.SearchAsync(null, "incoming", null);
+            return incomingTransactions.Sum(t => t.Quantity);
+        }
+
+        public async Task<int> GetTotalOutgoingQuantityAsync()
+        {
+            var outgoingTransactions = await _repository.SearchAsync(null, "outgoing", null);
+            return outgoingTransactions.Sum(t => t.Quantity);
+        }
+
+        public async Task<Dictionary<string, int>> GetStockSummaryAsync()
+        {
+            var summary = new Dictionary<string, int>();
+            
+            summary["totalIncoming"] = await GetTotalIncomingQuantityAsync();
+            summary["totalOutgoing"] = await GetTotalOutgoingQuantityAsync();
+            summary["currentStock"] = summary["totalIncoming"] - summary["totalOutgoing"];
+            
+            return summary;
         }
 
         private void ValidateTransaction(Transaction transaction)
