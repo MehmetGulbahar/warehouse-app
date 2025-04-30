@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export interface ReportFilter {
   startDate: Date;
@@ -24,7 +24,7 @@ const mockReportData: ReportData[] = [
   {
     id: '1',
     title: 'Total Stock Value',
-    value: 125000,
+    value: 0, 
     change: 12.5,
     trend: 'up',
     type: 'inventory',
@@ -77,9 +77,44 @@ export const useReports = () => {
     endDate: new Date(),
     type: 'all',
   });
+  const [reportData, setReportData] = useState<ReportData[]>([...mockReportData]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const [loading] = useState(false);
-  const [error] = useState<string | null>(null);
+  useEffect(() => {
+    const fetchTotalStock = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch('http://localhost:5210/api/inventory/totalstock', {
+          method: 'GET',
+          credentials: 'include',
+        });
+        
+        if (!response.ok) {
+          throw new Error('Failed to fetch total stock data');
+        }
+        
+        const data = await response.json();
+        
+        const stockValue = typeof data === 'number' 
+          ? data 
+          : (data.totalStock || data.total || data.count || data.value || Object.values(data)[0]);
+        
+        setReportData(prevData => 
+          prevData.map(item => 
+            item.id === '1' ? { ...item, value: stockValue } : item
+          )
+        );
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'An error occurred');
+        console.error('Error fetching total stock for reports:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTotalStock();
+  }, []);
 
   const updateFilters = (newFilters: Partial<ReportFilter>) => {
     setFilters(prev => ({ ...prev, ...newFilters }));
@@ -87,10 +122,10 @@ export const useReports = () => {
 
   const getReportData = (): ReportData[] => {
     if (filters.type === 'all') {
-      return mockReportData;
+      return reportData;
     }
     
-    return mockReportData.filter(report => report.type === filters.type);
+    return reportData.filter(report => report.type === filters.type);
   };
 
   return {
@@ -100,4 +135,4 @@ export const useReports = () => {
     loading,
     error,
   };
-}; 
+};
