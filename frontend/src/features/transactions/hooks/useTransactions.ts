@@ -79,12 +79,10 @@ export const useTransactions = () => {
       });
       
       if (!response.ok) {
-        // Try to get detailed error message from response
         const errorData = await response.json().catch(() => ({}));
         const errorMsg = errorData.message || errorData.title || errorData.detail || 'Failed to create transaction';
         console.error('Transaction error response:', errorData);
         
-        // Log the detailed validation errors if they exist
         if (errorData.errors) {
           console.error('Validation errors:', errorData.errors);
         }
