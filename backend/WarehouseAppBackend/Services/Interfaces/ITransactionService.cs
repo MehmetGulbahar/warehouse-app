@@ -13,20 +13,22 @@ namespace WarehouseAppBackend.Services.Interfaces
         Task<Transaction> UpdateTransactionAsync(Transaction transaction);
         Task<bool> DeleteTransactionAsync(string id);
         Task<List<Transaction>> SearchTransactionsAsync(string productId = null, string type = null, string status = null);
-        
+
         Task<Transaction> RecordInventoryTransactionAsync(
-            string type, 
-            string productId, 
-            string productName, 
-            string productSku, 
-            int quantity, 
-            decimal price, 
-            string partyName, 
-            string status = "completed", 
+            string type,
+            string productId,
+            string productName,
+            string productSku,
+            int quantity,
+            decimal price,
+            string partyName,
+            string status = "completed",
             string notes = null);
-            
+
         Task<int> GetTotalIncomingQuantityAsync();
         Task<int> GetTotalOutgoingQuantityAsync();
         Task<Dictionary<string, int>> GetStockSummaryAsync();
+
+        Task<TransactionStats> GetTransactionStatsAsync(DateTime currentStartDate, DateTime currentEndDate, DateTime prevStartDate, DateTime prevEndDate);
     }
 }

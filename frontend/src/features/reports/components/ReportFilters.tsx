@@ -1,5 +1,6 @@
 import { ReportFilter } from '../hooks/useReports';
 import { FiCalendar, FiFilter } from 'react-icons/fi';
+import { useTranslation } from 'react-i18next';
 
 interface ReportFiltersProps {
   filters: ReportFilter;
@@ -7,6 +8,8 @@ interface ReportFiltersProps {
 }
 
 export const ReportFilters = ({ filters, onFilterChange }: ReportFiltersProps) => {
+  const { t } = useTranslation();
+
   return (
     <div className="p-6 mb-8 bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
@@ -19,9 +22,9 @@ export const ReportFilters = ({ filters, onFilterChange }: ReportFiltersProps) =
             onChange={(e) => onFilterChange({ type: e.target.value as 'all' | 'inventory' | 'transactions' })}
             className="block w-full sm:w-48 px-4 py-2.5 text-base text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 hover:border-gray-300 dark:hover:border-gray-500"
           >
-            <option value="all">All Reports</option>
-            <option value="inventory">Stock Reports</option>
-            <option value="transactions">Transaction Reports</option>
+            <option value="all">{t('reports.allReports')}</option>
+            <option value="inventory">{t('reports.stockReports')}</option>
+            <option value="transactions">{t('reports.transactionReports')}</option>
           </select>
         </div>
 
@@ -35,6 +38,7 @@ export const ReportFilters = ({ filters, onFilterChange }: ReportFiltersProps) =
               value={filters.startDate.toISOString().split('T')[0]}
               onChange={(e) => onFilterChange({ startDate: new Date(e.target.value) })}
               className="block w-full sm:w-48 px-4 py-2.5 text-base text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 hover:border-gray-300 dark:hover:border-gray-500"
+              aria-label={t('reports.startDate')}
             />
             <span className="text-gray-500 dark:text-gray-400">-</span>
             <input
@@ -42,10 +46,11 @@ export const ReportFilters = ({ filters, onFilterChange }: ReportFiltersProps) =
               value={filters.endDate.toISOString().split('T')[0]}
               onChange={(e) => onFilterChange({ endDate: new Date(e.target.value) })}
               className="block w-full sm:w-48 px-4 py-2.5 text-base text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 hover:border-gray-300 dark:hover:border-gray-500"
+              aria-label={t('reports.endDate')}
             />
           </div>
         </div>
       </div>
     </div>
   );
-}; 
+};

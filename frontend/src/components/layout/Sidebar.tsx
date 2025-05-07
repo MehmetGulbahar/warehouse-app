@@ -12,36 +12,38 @@ import { CiSettings } from "react-icons/ci";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { RiArrowLeftRightLine } from "react-icons/ri";
 import { PiArrowSquareOutBold, PiArrowSquareInBold } from "react-icons/pi";
+import { useTranslation } from 'react-i18next';
 
 type NavItem = {
-  name: string;
+  nameKey: string;
   href: string;
   icon: React.ReactNode;
   submenu?: NavItem[];
 }
 
-const navigation: NavItem[] = [
-  { name: 'Home Page', href: '/', icon: <AiOutlineHome size={24} /> },
-  { name: 'Inventory Management', href: '/inventory', icon: <GoPackage size={24} /> },
-  { 
-    name: 'Transactions', 
-    href: '/transactions', 
-    icon: <TbReportAnalytics size={24} />,
-    submenu: [
-      { name: 'All Transactions', href: '/transactions', icon: <RiArrowLeftRightLine size={20} /> },
-      { name: 'Outgoing Stock', href: '/transactions/outgoing', icon: <PiArrowSquareOutBold size={20} /> },
-      { name: 'Incoming Stock', href: '/transactions/incoming', icon: <PiArrowSquareInBold size={20} /> },
-    ] 
-  },
-  { name: 'Reports', href: '/reports', icon: <LiaSignalSolid size={24} /> },
-  { name: 'Suppliers', href: '/suppliers', icon: <FaArrowsDownToPeople size={24} /> },
-  { name: 'Settings', href: '/settings', icon: <CiSettings size={24} /> },
-]
-
 export default function Sidebar() {
   const pathname = usePathname()
   const [isCollapsed, setIsCollapsed] = useState(false)
   const [expandedItem, setExpandedItem] = useState<string | null>(null)
+  const { t } = useTranslation();
+
+  const navigation: NavItem[] = [
+    { nameKey: 'common.dashboard', href: '/', icon: <AiOutlineHome size={24} /> },
+    { nameKey: 'inventory.title', href: '/inventory', icon: <GoPackage size={24} /> },
+    { 
+      nameKey: 'transactions.title', 
+      href: '/transactions', 
+      icon: <TbReportAnalytics size={24} />,
+      submenu: [
+        { nameKey: 'transactions.title', href: '/transactions', icon: <RiArrowLeftRightLine size={20} /> },
+        { nameKey: 'transactions.outgoing', href: '/transactions/outgoing', icon: <PiArrowSquareOutBold size={20} /> },
+        { nameKey: 'transactions.incoming', href: '/transactions/incoming', icon: <PiArrowSquareInBold size={20} /> },
+      ] 
+    },
+    { nameKey: 'reports.title', href: '/reports', icon: <LiaSignalSolid size={24} /> },
+    { nameKey: 'suppliers.title', href: '/suppliers', icon: <FaArrowsDownToPeople size={24} /> },
+    { nameKey: 'settings.title', href: '/settings', icon: <CiSettings size={24} /> },
+  ];
 
   const toggleSidebar = () => {
     setIsCollapsed(!isCollapsed)
@@ -76,10 +78,10 @@ export default function Sidebar() {
           {navigation.map((item) => {
             const isActive = item.href === pathname || 
               (item.submenu && item.submenu.some(subItem => subItem.href === pathname))
-            const isExpanded = expandedItem === item.name
+            const isExpanded = expandedItem === item.nameKey
             
             return (
-              <div key={item.name} className="flex flex-col">
+              <div key={item.nameKey} className="flex flex-col">
                 <div 
                   className={`flex items-center ${isCollapsed ? 'justify-center' : ''} px-4 py-3 text-sm font-medium rounded-lg transition-colors ${
                     isActive
@@ -96,11 +98,11 @@ export default function Sidebar() {
                     >
                       {item.icon}
                     </span>
-                    {!isCollapsed && <span className="ml-3">{item.name}</span>}
+                    {!isCollapsed && <span className="ml-3">{t(item.nameKey)}</span>}
                   </Link>
                   {!isCollapsed && item.submenu && (
                     <button
-                      onClick={(e) => toggleExpand(item.name, e)}
+                      onClick={(e) => toggleExpand(item.nameKey, e)}
                       className="ml-auto focus:outline-none"
                       aria-label={isExpanded ? "Collapse submenu" : "Expand submenu"}
                     >
@@ -116,7 +118,7 @@ export default function Sidebar() {
                       const isSubActive = pathname === subItem.href
                       return (
                         <Link
-                          key={subItem.name}
+                          key={subItem.nameKey}
                           href={subItem.href}
                           className={`flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
                             isSubActive
@@ -125,7 +127,7 @@ export default function Sidebar() {
                           }`}
                         >
                           <span className="mr-3">{subItem.icon}</span>
-                          <span>{subItem.name}</span>
+                          <span>{t(subItem.nameKey)}</span>
                         </Link>
                       )
                     })}

@@ -55,14 +55,14 @@ namespace WarehouseAppBackend.Services
         }
 
         public async Task<Transaction> RecordInventoryTransactionAsync(
-            string type, 
-            string productId, 
-            string productName, 
-            string productSku, 
-            int quantity, 
-            decimal price, 
-            string partyName, 
-            string status = "completed", 
+            string type,
+            string productId,
+            string productName,
+            string productSku,
+            int quantity,
+            decimal price,
+            string partyName,
+            string status = "completed",
             string notes = null)
         {
             if (type != "incoming" && type != "outgoing")
@@ -104,12 +104,60 @@ namespace WarehouseAppBackend.Services
         public async Task<Dictionary<string, int>> GetStockSummaryAsync()
         {
             var summary = new Dictionary<string, int>();
-            
+
             summary["totalIncoming"] = await GetTotalIncomingQuantityAsync();
             summary["totalOutgoing"] = await GetTotalOutgoingQuantityAsync();
             summary["currentStock"] = summary["totalIncoming"] - summary["totalOutgoing"];
-            
+
             return summary;
+        }
+
+        public async Task<TransactionStats> GetTransactionStatsAsync(
+            DateTime currentStartDate,
+            DateTime currentEndDate,
+            DateTime prevStartDate,
+            DateTime prevEndDate)
+        {
+            var allTransactions = await _repository.GetAllAsync();
+
+            var currentPeriodTransactions = allTransactions
+                .Where(t => t.TransactionDate >= currentStartDate && t.TransactionDate <= currentEndDate)
+                .ToList();
+
+            var prevPeriodTransactions = allTransactions
+                .Where(t => t.TransactionDate >= prevStartDate && t.TransactionDate <= prevEndDate)
+                .ToList();
+
+            var stats = new TransactionStats
+            {
+                CurrentPeriod = new PeriodStats
+                {
+                    StartDate = currentStartDate,
+                    EndDate = currentEndDate,
+                    TransactionCount = currentPeriodTransactions.Count,
+                    TotalValue = currentPeriodTransactions.Sum(t => t.Price * t.Quantity)
+                },
+
+                PreviousPeriod = new PeriodStats
+                {
+                    StartDate = prevStartDate,
+                    EndDate = prevEndDate,
+                    TransactionCount = prevPeriodTransactions.Count,
+                    TotalValue = prevPeriodTransactions.Sum(t => t.Price * t.Quantity)
+                }
+            };
+
+            if (stats.PreviousPeriod.TotalValue == 0)
+            {
+                stats.ChangePercentage = stats.CurrentPeriod.TotalValue > 0 ? 100 : 0;
+            }
+            else
+            {
+                stats.ChangePercentage = ((stats.CurrentPeriod.TotalValue - stats.PreviousPeriod.TotalValue) /
+                                         stats.PreviousPeriod.TotalValue) * 100;
+            }
+
+            return stats;
         }
 
         private void ValidateTransaction(Transaction transaction)

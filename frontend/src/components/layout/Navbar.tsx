@@ -3,7 +3,9 @@
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { useTheme } from '@/providers/ThemeProvider'
-import { FiSun, FiMoon, FiBell, FiLogIn, FiUser, FiLogOut, FiSettings } from 'react-icons/fi'
+import { useLanguage } from '@/providers/LanguageProvider'
+import { useTranslation } from 'react-i18next'
+import { FiSun, FiMoon, FiBell, FiLogIn, FiUser, FiLogOut, FiSettings, FiGlobe } from 'react-icons/fi'
 import SignIn from '@/components/forms/SignIn'
 import SignUp from '@/components/forms/SignUp'
 
@@ -18,8 +20,11 @@ export default function Navbar() {
   const [isAuthOpen, setIsAuthOpen] = useState(false)
   const [authMode, setAuthMode] = useState<'signin' | 'signup'>('signin')
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
+  const [isLangMenuOpen, setIsLangMenuOpen] = useState(false)
   const [userData, setUserData] = useState<UserData | null>(null)
   const { theme, toggleTheme } = useTheme()
+  const { t } = useTranslation()
+  const { language, changeLanguage } = useLanguage()
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -61,6 +66,14 @@ export default function Navbar() {
     }
   }
 
+  const getCurrentLanguageName = () => {
+    switch (language) {
+      case 'tr': return 'TR';
+      case 'de': return 'DE';
+      default: return 'EN';
+    }
+  };
+
   return (
     <>
       <nav className="bg-white border-b border-gray-100 shadow-sm dark:bg-gray-800 dark:border-gray-700">
@@ -74,12 +87,58 @@ export default function Navbar() {
                   </svg>
                 </div>
                 <span className="text-2xl font-bold tracking-tight text-blue-500">
-                  Warehouse
+                  {t('common.appName')}
                 </span>
               </Link>
             </div>
 
             <div className="flex items-center pr-4 ml-auto space-x-4">
+              {/* Language Selector */}
+              <div className="relative">
+                <button
+                  onClick={() => setIsLangMenuOpen(!isLangMenuOpen)}
+                  className="flex items-center p-2 text-gray-500 rounded-full transition-colors hover:text-blue-500 hover:bg-gray-50 dark:hover:bg-gray-700"
+                  aria-label="Select language"
+                >
+                  <FiGlobe className="w-5 h-5 mr-1" />
+                  <span className="text-sm font-medium">{getCurrentLanguageName()}</span>
+                </button>
+                
+                {isLangMenuOpen && (
+                  <div className="absolute right-0 mt-2 bg-white rounded-md ring-1 ring-black ring-opacity-5 shadow-lg dark:bg-gray-800" style={{ zIndex: 2 }}>
+                    <div className="py-1">
+                      <button
+                        onClick={() => {
+                          changeLanguage('en'); 
+                          setIsLangMenuOpen(false);
+                        }}
+                        className={`flex items-center px-4 py-2 w-full text-left text-sm ${language === 'en' ? 'bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400' : 'text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700'}`}
+                      >
+                        English
+                      </button>
+                      <button
+                        onClick={() => {
+                          changeLanguage('tr'); 
+                          setIsLangMenuOpen(false);
+                        }}
+                        className={`flex items-center px-4 py-2 w-full text-left text-sm ${language === 'tr' ? 'bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400' : 'text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700'}`}
+                      >
+                        Türkçe
+                      </button>
+                      <button
+                        onClick={() => {
+                          changeLanguage('de'); 
+                          setIsLangMenuOpen(false);
+                        }}
+                        className={`flex items-center px-4 py-2 w-full text-left text-sm ${language === 'de' ? 'bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400' : 'text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700'}`}
+                      >
+                        Deutsch
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+              
               <button 
                 onClick={toggleTheme}
                 className="p-2 text-gray-500 rounded-full transition-colors hover:text-blue-500 hover:bg-gray-50 dark:hover:bg-gray-700"
@@ -117,21 +176,21 @@ export default function Navbar() {
                           className="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
                         >
                           <FiUser className="mr-2 w-4 h-4" />
-                          Profile
+                          {t('settings.profile')}
                         </Link>
                         <Link 
                           href="/settings" 
                           className="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
                         >
                           <FiSettings className="mr-2 w-4 h-4" />
-                          Settings
+                          {t('settings.title')}
                         </Link>
                         <button
                           onClick={handleLogout}
                           className="flex items-center px-4 py-2 w-full text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
                         >
                           <FiLogOut className="mr-2 w-4 h-4" />
-                          Logout
+                          {t('common.logout')}
                         </button>
                       </div>
                     </div>
@@ -144,13 +203,13 @@ export default function Navbar() {
                     className="px-3 py-1.5 text-sm font-medium text-blue-600 transition-colors rounded-md hover:bg-blue-50 dark:text-blue-400 dark:hover:bg-gray-700"
                   >
                     <FiLogIn className="inline-block mr-1 w-4 h-4" />
-                    Login
+                    {t('auth.login')}
                   </button>
                   <button
                     onClick={() => toggleAuth('signup')}
                     className="px-3 py-1.5 text-sm font-medium text-white transition-colors rounded-md bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700"
                   >
-                    Register
+                    {t('auth.register')}
                   </button>
                 </div>
               )}

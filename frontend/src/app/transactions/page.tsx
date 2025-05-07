@@ -3,9 +3,11 @@
 import { useState } from 'react';
 import { useTransactions } from '@/features/transactions/hooks/useTransactions';
 import { TransactionList } from '@/features/transactions/components/TransactionList';
+import { useTranslation } from 'react-i18next';
 import { FiFilter } from 'react-icons/fi';
 
 export default function TransactionsPage() {
+  const { t } = useTranslation();
   const { loading, error, filterTransactions } = useTransactions();
   const [selectedType, setSelectedType] = useState<'all' | 'incoming' | 'outgoing'>('all');
 
@@ -15,9 +17,9 @@ export default function TransactionsPage() {
     <div className="min-h-screen px-4 py-8 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="mb-8">
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Transactions</h1>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">{t('transactions.title', 'Transactions')}</h1>
           <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-            You can manage your stock movements here.
+            {t('transactions.description', 'You can manage your stock movements here.')}
           </p>
         </div>
 
@@ -32,9 +34,9 @@ export default function TransactionsPage() {
                 onChange={(e) => setSelectedType(e.target.value as 'all' | 'incoming' | 'outgoing')}
                 className="block w-full sm:w-64 px-4 py-2.5 text-base text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 hover:border-gray-300 dark:hover:border-gray-500"
               >
-                <option value="all">All Transactions</option>
-                <option value="incoming">Incoming Stock</option>
-                <option value="outgoing">Outgoing Stock</option>
+                <option value="all">{t('transactions.all')}</option>
+                <option value="incoming">{t('transactions.incoming')}</option>
+                <option value="outgoing">{t('transactions.outgoing')}</option>
               </select>
             </div>
           </div>
@@ -50,4 +52,4 @@ export default function TransactionsPage() {
       </div>
     </div>
   );
-} 
+}

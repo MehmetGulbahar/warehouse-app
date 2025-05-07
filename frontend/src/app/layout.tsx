@@ -1,10 +1,13 @@
 import { Inter } from 'next/font/google'
 import { ThemeProvider } from '@/providers/ThemeProvider'
 import { AuthProvider } from '@/providers/AuthProvider'
+import { LanguageProvider } from '@/providers/LanguageProvider'
 import Sidebar from '@/components/layout/Sidebar'
 import '@/styles/globals.css'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
+
+// Remove direct import of i18n config since it's now handled in LanguageProvider
 
 const inter = Inter({
   subsets: ['latin'],
@@ -26,18 +29,20 @@ export default function RootLayout({
     <html lang="tr" suppressHydrationWarning className={inter.variable}>
       <body className="font-sans" suppressHydrationWarning>
         <ThemeProvider>
-          <AuthProvider>
-            <div className="flex overflow-hidden h-screen">
-              <Sidebar />
-              <div className="flex flex-col flex-1 min-w-0">
-                <Navbar />
-                <main className="overflow-auto flex-1 p-6">
-                  {children}
-                </main>
+          <LanguageProvider>
+            <AuthProvider>
+              <div className="flex overflow-hidden h-screen">
+                <Sidebar />
+                <div className="flex flex-col flex-1 min-w-0">
+                  <Navbar />
+                  <main className="overflow-auto flex-1 p-6">
+                    {children}
+                  </main>
+                </div>
               </div>
-            </div>
-           <Footer />
-          </AuthProvider>
+             <Footer />
+            </AuthProvider>
+          </LanguageProvider>
         </ThemeProvider>
       </body>
     </html>

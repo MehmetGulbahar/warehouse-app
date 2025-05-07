@@ -160,7 +160,7 @@ namespace WarehouseAppBackend.Controllers
                 return StatusCode(500, new { message = $"Internal server error: {ex.Message}" });
             }
         }
-        
+
         [HttpGet("summary")]
         public async Task<ActionResult<Dictionary<string, int>>> GetStockSummary()
         {
@@ -168,6 +168,29 @@ namespace WarehouseAppBackend.Controllers
             {
                 var summary = await _transactionService.GetStockSummaryAsync();
                 return Ok(summary);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = $"Internal server error: {ex.Message}" });
+            }
+        }
+
+        [HttpGet("stats")]
+        public async Task<ActionResult<TransactionStats>> GetTransactionStats(
+            [FromQuery] DateTime currentStartDate,
+            [FromQuery] DateTime currentEndDate,
+            [FromQuery] DateTime prevStartDate,
+            [FromQuery] DateTime prevEndDate)
+        {
+            try
+            {
+                var stats = await _transactionService.GetTransactionStatsAsync(
+                    currentStartDate,
+                    currentEndDate,
+                    prevStartDate,
+                    prevEndDate);
+
+                return Ok(stats);
             }
             catch (Exception ex)
             {

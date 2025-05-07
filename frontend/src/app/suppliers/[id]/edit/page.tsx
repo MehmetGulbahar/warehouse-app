@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { FiArrowLeft, FiSave } from 'react-icons/fi';
 import { Supplier, useSuppliers } from '@/features/suppliers/hooks/useSuppliers';

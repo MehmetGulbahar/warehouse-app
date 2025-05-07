@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { FiArrowLeft, FiSave } from 'react-icons/fi'
 import { InventoryItem } from '@/features/inventory/hooks/useInventory'
+import { useTranslation } from 'react-i18next'
 
 export default function EditInventoryPage() {
   const params = useParams()
@@ -11,6 +12,7 @@ export default function EditInventoryPage() {
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const { t } = useTranslation()
   const [formData, setFormData] = useState<Omit<InventoryItem, 'id' | 'lastUpdated'>>({
     name: '',
     sku: '',
@@ -122,7 +124,7 @@ export default function EditInventoryPage() {
               className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 dark:hover:bg-gray-600"
             >
               <FiArrowLeft className="w-4 h-4 mr-2" />
-              Back to List
+              {t('common.back')}
             </button>
           </div>
         </div>
@@ -140,7 +142,7 @@ export default function EditInventoryPage() {
           >
             <FiArrowLeft className="w-5 h-5" />
           </button>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Edit Product</h1>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">{t('inventory.editItem')}</h1>
         </div>
 
         {error && (
@@ -155,7 +157,7 @@ export default function EditInventoryPage() {
             {/* Ürün Adı */}
             <div>
               <label htmlFor="name" className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300">
-                Product Name <span className="text-red-500">*</span>
+                {t('inventory.name')} <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
@@ -171,7 +173,7 @@ export default function EditInventoryPage() {
             {/* SKU */}
             <div>
               <label htmlFor="sku" className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300">
-                SKU <span className="text-red-500">*</span>
+                {t('inventory.sku')} <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
@@ -187,7 +189,7 @@ export default function EditInventoryPage() {
             {/* Kategori */}
             <div>
               <label htmlFor="category" className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300">
-                Category <span className="text-red-500">*</span>
+                {t('inventory.category')} <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
@@ -203,7 +205,7 @@ export default function EditInventoryPage() {
             {/* Tedarikçi */}
             <div>
               <label htmlFor="supplier" className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300">
-                Supplier <span className="text-red-500">*</span>
+                {t('suppliers.title')} <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
@@ -219,7 +221,7 @@ export default function EditInventoryPage() {
             {/* Miktar */}
             <div>
               <label htmlFor="quantity" className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300">
-                Quantity <span className="text-red-500">*</span>
+                {t('inventory.quantity')} <span className="text-red-500">*</span>
               </label>
               <div className="flex">
                 <input
@@ -250,7 +252,7 @@ export default function EditInventoryPage() {
             {/* Fiyat */}
             <div>
               <label htmlFor="price" className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300">
-                Price (₺) <span className="text-red-500">*</span>
+                {t('inventory.price')} (₺) <span className="text-red-500">*</span>
               </label>
               <input
                 type="number"
@@ -268,7 +270,7 @@ export default function EditInventoryPage() {
             {/* Durum */}
             <div>
               <label htmlFor="status" className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300">
-                Status <span className="text-red-500">*</span>
+                {t('common.status')} <span className="text-red-500">*</span>
               </label>
               <select
                 id="status"
@@ -278,9 +280,9 @@ export default function EditInventoryPage() {
                 value={formData.status}
                 onChange={handleChange}
               >
-                <option value="in-stock">In Stock</option>
-                <option value="low-stock">Low Stock</option>
-                <option value="out-of-stock">Out of Stock</option>
+                <option value="in-stock">{t('inventory.inStock')}</option>
+                <option value="low-stock">{t('inventory.lowStockAlert')}</option>
+                <option value="out-of-stock">{t('inventory.outOfStock')}</option>
               </select>
             </div>
           </div>
@@ -291,7 +293,7 @@ export default function EditInventoryPage() {
               onClick={() => router.push(`/inventory/${params.id}`)}
               className="px-4 py-2 mr-3 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 dark:hover:bg-gray-600"
             >
-              Cancel
+              {t('common.cancel')}
             </button>
             <button
               type="submit"
@@ -304,12 +306,12 @@ export default function EditInventoryPage() {
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                   </svg>
-                  Saving...
+                  {t('common.save')}...
                 </>
               ) : (
                 <>
                   <FiSave className="w-4 h-4 mr-2" />
-                  Save
+                  {t('common.save')}
                 </>
               )}
             </button>

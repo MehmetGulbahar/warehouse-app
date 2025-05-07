@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react'
 import { RefreshCw } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import {
   Table,
   TableBody,
@@ -22,8 +23,6 @@ const formatDate = (date: Date): string => {
   })
 }
 
-
-
 interface TransactionListProps {
   transactions: TransactionType[]; 
   loading: boolean;
@@ -31,6 +30,7 @@ interface TransactionListProps {
 }
 
 export function TransactionList({ transactions, loading, error }: TransactionListProps) {
+  const { t } = useTranslation();
   const [filter, setFilter] = useState<'all' | 'incoming' | 'outgoing'>('all')
   
   const filteredTransactions = transactions.filter(transaction => {
@@ -41,25 +41,25 @@ export function TransactionList({ transactions, loading, error }: TransactionLis
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold dark:text-white">Transaction History</h2>
+        <h2 className="text-2xl font-bold dark:text-white">{t('transactions.history', 'Transaction History')}</h2>
         <div className="flex space-x-2">
           <Button
             variant={filter === 'all' ? 'default' : 'outline'}
             onClick={() => setFilter('all')}
           >
-            All
+            {t('transactions.all', 'All')}
           </Button>
           <Button
             variant={filter === 'incoming' ? 'default' : 'outline'}
             onClick={() => setFilter('incoming')}
           >
-            Incoming
+            {t('transactions.incoming', 'Incoming')}
           </Button>
           <Button
             variant={filter === 'outgoing' ? 'default' : 'outline'}
             onClick={() => setFilter('outgoing')}
           >
-            Outgoing
+            {t('transactions.outgoing', 'Outgoing')}
           </Button>
           <Button
             variant="outline"
@@ -67,7 +67,7 @@ export function TransactionList({ transactions, loading, error }: TransactionLis
             className="flex items-center gap-1"
           >
             <RefreshCw className="w-4 h-4" />
-            Refresh
+            {t('common.refresh', 'Refresh')}
           </Button>
         </div>
       </div>
@@ -85,21 +85,21 @@ export function TransactionList({ transactions, loading, error }: TransactionLis
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Type</TableHead>
-                <TableHead>Product</TableHead>
-                <TableHead>SKU</TableHead>
-                <TableHead>Quantity</TableHead>
-                <TableHead>Price</TableHead>
-                <TableHead>Date</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Supplier/Customer</TableHead>
+                <TableHead>{t('common.type', 'Type')}</TableHead>
+                <TableHead>{t('inventory.name', 'Name')}</TableHead>
+                <TableHead>{t('inventory.sku', 'SKU')}</TableHead>
+                <TableHead>{t('inventory.quantity', 'Quantity')}</TableHead>
+                <TableHead>{t('inventory.price', 'Price')}</TableHead>
+                <TableHead>{t('common.date', 'Date')}</TableHead>
+                <TableHead>{t('common.status', 'Status')}</TableHead>
+                <TableHead>{t('transactions.party', 'Party')}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {filteredTransactions.length === 0 ? (
                 <TableRow>
                   <TableCell colSpan={8} className="text-center">
-                    No transactions found
+                    {t('transactions.emptyMessage', 'No transactions found')}
                   </TableCell>
                 </TableRow>
               ) : (
@@ -111,7 +111,9 @@ export function TransactionList({ transactions, loading, error }: TransactionLis
                           transaction.type === 'incoming' ? 'success' : 'destructive'
                         }
                       >
-                        {transaction.type === 'incoming' ? 'In' : 'Out'}
+                        {transaction.type === 'incoming' 
+                          ? t('transactions.in', 'In') 
+                          : t('transactions.out', 'Out')}
                       </Badge>
                     </TableCell>
                     <TableCell className="font-medium">
@@ -138,7 +140,11 @@ export function TransactionList({ transactions, loading, error }: TransactionLis
                             : 'text-red-500 dark:text-red-400'
                         }
                       >
-                        {transaction.status}
+                        {transaction.status === 'completed' 
+                          ? t('transactions.status.completed', 'Completed')
+                          : transaction.status === 'pending' 
+                          ? t('transactions.status.pending', 'Pending')
+                          : t('transactions.status.cancelled', 'Cancelled')}
                       </Badge>
                     </TableCell>
                     <TableCell>

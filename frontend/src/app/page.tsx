@@ -2,8 +2,12 @@
 
 import { useDashboard } from '@/features/dashboard/hooks/useDashboard';
 import { StockChart } from '@/features/dashboard/components/StockChart';
+import { useTranslation } from 'react-i18next';
 
 export default function Home() {
+  // Add translation hook
+  const { t } = useTranslation();
+  
   const {
     totalStock,
     incomingStock,
@@ -21,67 +25,67 @@ export default function Home() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold">Dashboard</h1>
+      <h1 className="text-2xl font-bold">{t('common.dashboard')}</h1>
       
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-        {/* Stok Durumu */}
+        {/* Total Stock */}
         <div className="card">
-          <h3 className="mb-2 text-lg font-medium">Total Stock</h3>
+          <h3 className="mb-2 text-lg font-medium">{t('dashboard.totalStock')}</h3>
           {isLoading ? (
-            <p className="text-3xl font-bold text-primary">Loading...</p>
+            <p className="text-3xl font-bold text-primary">{t('common.loading')}...</p>
           ) : error ? (
-            <p className="text-sm text-danger">Error: {error}</p>
+            <p className="text-sm text-danger">{t('common.error')}: {error}</p>
           ) : (
             <p className="text-3xl font-bold text-primary">{totalStock?.toLocaleString() || '0'}</p>
           )}
         </div>
 
-        {/* Gelen Stoklar */}
+        {/* Incoming Stock */}
         <div className="card">
-          <h3 className="mb-2 text-lg font-medium">Incoming Stock</h3>
+          <h3 className="mb-2 text-lg font-medium">{t('transactions.incoming')}</h3>
           {isSummaryLoading ? (
-            <p className="text-3xl font-bold text-success">Loading...</p>
+            <p className="text-3xl font-bold text-success">{t('common.loading')}...</p>
           ) : summaryError ? (
-            <p className="text-sm text-danger">Error: {summaryError}</p>
+            <p className="text-sm text-danger">{t('common.error')}: {summaryError}</p>
           ) : (
             <p className="text-3xl font-bold text-success">{incomingStock?.toLocaleString() || '0'}</p>
           )}
         </div>
 
-        {/* Çıkan Stoklar */}
+        {/* Outgoing Stock */}
         <div className="card">
-          <h3 className="mb-2 text-lg font-medium">Outgoing Stock</h3>
+          <h3 className="mb-2 text-lg font-medium">{t('transactions.outgoing')}</h3>
           {isSummaryLoading ? (
-            <p className="text-3xl font-bold text-warning">Loading...</p>
+            <p className="text-3xl font-bold text-warning">{t('common.loading')}...</p>
           ) : summaryError ? (
-            <p className="text-sm text-danger">Error: {summaryError}</p>
+            <p className="text-sm text-danger">{t('common.error')}: {summaryError}</p>
           ) : (
             <p className="text-3xl font-bold text-warning">{outgoingStock?.toLocaleString() || '0'}</p>
           )}
         </div>
 
-        {/* Kritik Stoklar */}
+        {/* Critical Stock */}
         <div className="card">
-          <h3 className="mb-2 text-lg font-medium">Critical Stock</h3>
+          <h3 className="mb-2 text-lg font-medium">{t('dashboard.stockAlerts')}</h3>
           <p className="text-3xl font-bold text-danger">12</p>
         </div>
       </div>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        {/* Son İşlemler */}
+        {/* Recent Transactions */}
         <div className="card">
-          <h3 className="mb-4 text-lg font-medium">Last Transactions</h3>
+          <h3 className="mb-4 text-lg font-medium">{t('dashboard.recentTransactions')}</h3>
           {transactionsLoading ? (
             <div className="flex flex-col items-center justify-center w-full p-8 text-gray-500">
               <div className="w-8 h-8 mb-4 border-t-2 border-b-2 border-gray-300 rounded-full animate-spin"></div>
-              <p>Loading transactions...</p>
+              <p>{t('common.loading')}...</p>
             </div>
           ) : transactionsError ? (
             <div className="p-4 text-sm text-white bg-red-500 rounded-md">
               {transactionsError}
             </div>
           ) : transactions.length === 0 ? (
-            <p className="text-gray-500">No transactions found</p>
+            <p className="text-gray-500">{t('transactions.emptyMessage')}</p>
           ) : (
             <div className="space-y-3">
               {transactions.map(transaction => (
@@ -105,13 +109,13 @@ export default function Home() {
                     )}
                   </div>
                   <div className="flex-1">
-                    <p className="font-medium text-gray-900 dark:text-white">{transaction.productName || `Product #${transaction.id.substring(0, 8)}`}</p>
+                    <p className="font-medium text-gray-900 dark:text-white">{transaction.productName || `${t('transactions.productName')} #${transaction.id.substring(0, 8)}`}</p>
                     <p className="text-sm text-gray-500 dark:text-gray-400">
                       <span className={transaction.type === 'incoming' ? 'text-green-600 dark:text-green-400' : 'text-amber-600 dark:text-amber-400'}>
-                        {transaction.type === 'incoming' ? 'Incoming' : 'Outgoing'}
+                        {transaction.type === 'incoming' ? t('transactions.incoming') : t('transactions.outgoing')}
                       </span>
                       <span className="mx-1">•</span>
-                      {transaction.quantity} units
+                      {transaction.quantity} {t('transactions.quantity')}
                     </p>
                   </div>
                   <div className="text-right">
@@ -125,9 +129,9 @@ export default function Home() {
           )}
         </div>
 
-        {/* Stok Hareketleri */}
+        {/* Stock Movements */}
         <div className="card">
-          <h3 className="mb-4 text-lg font-medium">Stock Movements</h3>
+          <h3 className="mb-4 text-lg font-medium">{t('dashboard.stockAlerts')}</h3>
           <div>
             <StockChart isLoading={isLoading || isSummaryLoading} />
           </div>

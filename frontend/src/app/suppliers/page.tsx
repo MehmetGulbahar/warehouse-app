@@ -3,8 +3,10 @@
 import { useSuppliers, Supplier } from '@/features/suppliers/hooks/useSuppliers';
 import { SupplierList } from '@/features/suppliers/components/SupplierList';
 import { useRouter } from 'next/navigation';
+import { useTranslation } from 'react-i18next';
 
 export default function SuppliersPage() {
+  const { t } = useTranslation();
   const { filters, updateFilters, suppliers, loading, error } = useSuppliers();
   const router = useRouter();
 
@@ -32,9 +34,9 @@ export default function SuppliersPage() {
     <div className="px-4 py-8 min-h-screen dark:bg-gray-900 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="mb-8">
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Suppliers</h1>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">{t('suppliers.title')}</h1>
           <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-            Supplier information can be managed here.
+            {t('suppliers.description')}
           </p>
         </div>
 
@@ -47,4 +49,4 @@ export default function SuppliersPage() {
       </div>
     </div>
   );
-} 
+}

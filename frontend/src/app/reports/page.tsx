@@ -3,15 +3,20 @@
 import { useReports } from '@/features/reports/hooks/useReports';
 import { ReportCard } from '@/features/reports/components/ReportCard';
 import { ReportFilters } from '@/features/reports/components/ReportFilters';
+import { useTranslation } from 'react-i18next';
 
 export default function ReportsPage() {
+  const { t } = useTranslation();
   const { filters, updateFilters, reportData, loading, error } = useReports();
 
   return (
     <div className="space-y-6">
       <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
-        <h1 className="text-2xl font-bold">Reports & Analytics</h1>
-        <ReportFilters filters={filters} onChange={updateFilters} />
+        <div>
+          <h1 className="text-2xl font-bold">{t('reports.title')}</h1>
+          <p className="mt-1 text-gray-500 dark:text-gray-400">{t('reports.description')}</p>
+        </div>
+        <ReportFilters filters={filters} onFilterChange={updateFilters} />
       </div>
 
       {error && (
@@ -27,16 +32,16 @@ export default function ReportsPage() {
       </div>
 
       <div className="p-6 bg-white border border-gray-100 shadow dark:bg-gray-800 dark:border-gray-700 rounded-xl">
-        <h2 className="mb-4 text-xl font-semibold">Analytics Insights</h2>
+        <h2 className="mb-4 text-xl font-semibold">{t('reports.insights')}</h2>
         <div className="space-y-4">
           <div className="p-4 bg-blue-50 border border-blue-100 rounded-lg dark:bg-blue-900/30 dark:border-blue-800">
             <p className="text-sm text-blue-800 dark:text-blue-400">
-              <span className="font-medium">Trend Analysis:</span> Stock levels have increased by 12.5% compared to last month, indicating growing inventory.
+              <span className="font-medium">{t('reports.trendAnalysis')}:</span> {t('reports.stockTrend')}
             </p>
           </div>
           <div className="p-4 bg-amber-50 border border-amber-100 rounded-lg dark:bg-amber-900/30 dark:border-amber-800">
             <p className="text-sm text-amber-800 dark:text-amber-400">
-              <span className="font-medium">Recommendation:</span> Consider evaluating stock turnover rates to optimize inventory levels.
+              <span className="font-medium">{t('reports.recommendation')}:</span> {t('reports.stockRecommendation')}
             </p>
           </div>
         </div>
