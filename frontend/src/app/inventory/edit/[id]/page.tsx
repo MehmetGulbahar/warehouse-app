@@ -24,7 +24,6 @@ export default function EditInventoryPage() {
     status: 'in-stock'
   })
 
-  // Ürün verilerini yükle
   useEffect(() => {
     const fetchItem = async () => {
       try {
@@ -66,7 +65,6 @@ export default function EditInventoryPage() {
     }
   }
 
-  // Form submit
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setSaving(true)

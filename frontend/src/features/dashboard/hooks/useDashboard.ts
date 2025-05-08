@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { formatDistanceToNow } from 'date-fns';
 import { tr } from 'date-fns/locale';
 
-// Transaction type definition
 export interface Transaction {
   id: string;
   productName?: string;

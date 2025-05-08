@@ -67,12 +67,10 @@ export default function InventoryDetail() {
     }
   }, [params.id])
 
-  // Silme işlemi için onay
   const handleDeleteClick = () => {
     setIsDeleteModalOpen(true)
   }
 
-  // Silme işlemini gerçekleştir
   const handleDeleteConfirm = async () => {
     try {
       const response = await fetch(`http://localhost:5210/api/inventory/${params.id}`, {
@@ -84,7 +82,6 @@ export default function InventoryDetail() {
         throw new Error('Product deletion error.')
       }
       
-      // Başarılı silme işlemi sonrası listeye yönlendir
       router.push('/inventory')
     } catch (err) {
       setError('Product deletion error.')

@@ -38,7 +38,6 @@ export function useInventory() {
     sortOrder: 'asc'
   })
 
-  // Verileri yükle
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -65,12 +64,10 @@ export function useInventory() {
     fetchData()
   }, [])
 
-  // Filtreleri güncelle
   const updateFilters = (newFilters: Partial<Filters>) => {
     setFilters(prev => ({ ...prev, ...newFilters }))
   }
 
-  // Ürün silme fonksiyonu
   const deleteItem = async (id: string) => {
     try {
       const response = await fetch(`http://localhost:5210/api/inventory/${id}`, {
@@ -91,7 +88,6 @@ export function useInventory() {
     }
   }
 
-  // Ürün güncelleme fonksiyonu
   const updateItem = async (id: string, updatedItem: Partial<InventoryItem>) => {
     try {
       const response = await fetch(`http://localhost:5210/api/inventory/${id}`, {
@@ -117,7 +113,6 @@ export function useInventory() {
     }
   }
 
-  // Yeni ürün ekleme fonksiyonu
   const addItem = async (newItem: Omit<InventoryItem, 'id' | 'lastUpdated'>) => {
     try {
       const response = await fetch('http://localhost:5210/api/inventory', {
@@ -143,7 +138,6 @@ export function useInventory() {
     }
   }
 
-  // Filtrelenmiş ve sıralanmış ürünleri hesapla
   const filteredItems = items
     .filter(item => {
       const matchesSearch = !filters.search || 

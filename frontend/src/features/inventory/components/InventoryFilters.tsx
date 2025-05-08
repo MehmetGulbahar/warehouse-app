@@ -23,7 +23,6 @@ export default function InventoryFilters({ filters, categories, suppliers, onUpd
   const [isFiltersOpen, setIsFiltersOpen] = useState(false)
   const [activeFiltersCount, setActiveFiltersCount] = useState(0)
 
-  // Calculate active filter count
   useEffect(() => {
     const count = [
       filters.category,
@@ -50,7 +49,6 @@ export default function InventoryFilters({ filters, categories, suppliers, onUpd
     { value: 'status', label: t('common.status') }
   ]
 
-  // Clear filters
   const clearFilters = () => {
     onUpdateFilters({
       category: '',

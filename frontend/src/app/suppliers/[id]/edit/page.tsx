@@ -22,11 +22,9 @@ export default function EditSupplierPage() {
     status: 'active'
   });
   
-  // Find supplier by ID - outside of useEffect to avoid causing loops
   const supplierId = typeof params.id === 'string' ? params.id : Array.isArray(params.id) ? params.id[0] : '';
   const supplier = suppliers.find(s => s.id === supplierId);
 
-  // Load form data from supplier when supplier changes
   useEffect(() => {
     if (supplier) {
       const { name, contactPerson, email, phone, address, taxNumber, status } = supplier;
@@ -34,11 +32,9 @@ export default function EditSupplierPage() {
       setError(null);
       setLoading(false);
     } else if (suppliers.length > 0) {
-      // If we have suppliers data but didn't find this ID
       setError('Supplier not found');
       setLoading(false);
     }
-    // Only run this when the supplier or suppliers array changes
   }, [supplier, suppliers.length]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -70,7 +66,6 @@ export default function EditSupplierPage() {
     );
   }
 
-  // Show error if supplier not found
   if (!supplier && !loading) {
     return (
       <div className="container px-4 py-8 mx-auto">

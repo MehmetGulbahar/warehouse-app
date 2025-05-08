@@ -30,7 +30,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const login = async ({ email }: LoginCredentials) => {
     setIsLoading(true)
     try {
-      // Mock login - replace with actual API call
       console.log(`Login attempt with email: ${email}`)
       
       const mockUser: User = {

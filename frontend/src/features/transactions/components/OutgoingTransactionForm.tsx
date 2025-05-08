@@ -102,10 +102,8 @@ export function OutgoingTransactionForm({ onSuccess }: OutgoingTransactionFormPr
       const now = new Date();
       const formattedDate = now.toISOString().split('.')[0]; // Remove milliseconds
       
-      // Calculate unit price (price per item)
       const unitPrice = selectedProduct.price / selectedProduct.quantity;
       
-      // Calculate new total price based on remaining quantity
       const remainingQuantity = selectedProduct.quantity - quantity;
       const newTotalPrice = unitPrice * remainingQuantity;
       

@@ -31,7 +31,6 @@ const i18nConfig = () => {
       interpolation: {
         escapeValue: false 
       },
-      // Only initialize once on the client
       react: { 
         useSuspense: false 
       }

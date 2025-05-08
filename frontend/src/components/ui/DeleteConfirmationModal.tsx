@@ -24,7 +24,6 @@ const DeleteConfirmationModal = ({
 }: DeleteConfirmationModalProps) => {
   const modalRef = useRef<HTMLDivElement>(null);
 
-  // Handle click outside to close
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (modalRef.current && !modalRef.current.contains(event.target as Node) && !isDeleting) {
@@ -41,7 +40,6 @@ const DeleteConfirmationModal = ({
     };
   }, [isOpen, onCancel, isDeleting]);
 
-  // Handle escape key
   useEffect(() => {
     const handleEscapeKey = (event: KeyboardEvent) => {
       if (event.key === 'Escape' && !isDeleting) {

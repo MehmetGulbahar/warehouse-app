@@ -181,4 +181,52 @@ public class AuthController : ControllerBase
             return BadRequest(new { success = false, message = ex.Message });
         }
     }
+    
+    [HttpPost("change-password")]
+    [Authorize]
+    public async Task<ActionResult<AuthResponseDTO>> ChangePassword([FromBody] ChangePasswordDTO model)
+    {
+        try
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Unauthorized(new AuthResponseDTO { Success = false, Message = "User not authenticated" });
+            }
+
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return NotFound(new AuthResponseDTO { Success = false, Message = "User not found" });
+            }
+
+            var isCurrentPasswordValid = await _userManager.CheckPasswordAsync(user, model.CurrentPassword);
+            if (!isCurrentPasswordValid)
+            {
+                return BadRequest(new AuthResponseDTO { Success = false, Message = "Current password is incorrect" });
+            }
+
+            if (model.NewPassword != model.ConfirmPassword)
+            {
+                return BadRequest(new AuthResponseDTO { Success = false, Message = "New password and confirmation password do not match" });
+            }
+
+            var result = await _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
+            if (!result.Succeeded)
+            {
+                return BadRequest(new AuthResponseDTO
+                {
+                    Success = false,
+                    Message = "Failed to change password",
+                    Errors = result.Errors.Select(e => e.Description).ToList()
+                });
+            }
+
+            return Ok(new AuthResponseDTO { Success = true, Message = "Password changed successfully" });
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new AuthResponseDTO { Success = false, Message = ex.Message });
+        }
+    }
 }

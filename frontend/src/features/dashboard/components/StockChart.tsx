@@ -43,15 +43,13 @@ export const StockChart = ({ isLoading = false }: StockChartProps) => {
     const fetchStockMovements = async () => {
       try {
         setLoading(true);
-        // You can replace this with your actual API endpoint for stock movements over time
         const response = await fetch('http://localhost:5210/api/Transaction/movements', {
           method: 'GET',
           credentials: 'include',
         });
 
         if (!response.ok) {
-          // If the API endpoint doesn't exist yet, use mock data
-          // This makes the component work even if the backend isn't ready
+         
           const mockData = {
             labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
             incoming: [65, 78, 52, 83, 95, 87],
@@ -109,7 +107,6 @@ export const StockChart = ({ isLoading = false }: StockChartProps) => {
         console.error('Error fetching stock movements:', err);
         setError('Failed to load stock movement data');
         
-        // Use mock data as fallback
         const mockData = {
           labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
           incoming: [65, 78, 52, 83, 95, 87],
@@ -188,7 +185,7 @@ export const StockChart = ({ isLoading = false }: StockChartProps) => {
   if (isLoading || loading) {
     return (
       <div className="flex flex-col items-center justify-center h-64">
-        <div className="w-10 h-10 border-t-2 border-b-2 border-blue-500 rounded-full animate-spin mb-4"></div>
+        <div className="w-10 h-10 mb-4 border-t-2 border-b-2 border-blue-500 rounded-full animate-spin"></div>
         <p className="text-gray-500">Loading chart data...</p>
       </div>
     );

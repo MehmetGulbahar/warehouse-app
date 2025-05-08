@@ -5,7 +5,6 @@ import { StockChart } from '@/features/dashboard/components/StockChart';
 import { useTranslation } from 'react-i18next';
 
 export default function Home() {
-  // Add translation hook
   const { t } = useTranslation();
   
   const {
