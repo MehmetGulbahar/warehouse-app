@@ -181,7 +181,7 @@ public class AuthController : ControllerBase
             return BadRequest(new { success = false, message = ex.Message });
         }
     }
-    
+
     [HttpPost("change-password")]
     [Authorize]
     public async Task<ActionResult<AuthResponseDTO>> ChangePassword([FromBody] ChangePasswordDTO model)

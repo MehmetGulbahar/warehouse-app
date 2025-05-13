@@ -22,24 +22,25 @@ export const SettingsSidebar: React.FC<SettingsSidebarProps> = ({
   ];
 
   return (
-    <div className="w-full bg-white border-r border-gray-100 dark:bg-gray-800 dark:border-gray-700 md:w-64">
+    <div className="w-full bg-white dark:bg-gray-800 h-full">
       <div className="p-4">
-        <h2 className="mb-6 text-2xl font-semibold text-gray-800 dark:text-white">{t('settings.title')}</h2>
         <nav className="space-y-1">
           {tabs.map((tab) => {
             const Icon = tab.icon;
+            const isActive = activeTab === tab.id;
+            
             return (
               <button
                 key={tab.id}
                 onClick={() => onTabChange(tab.id)}
-                className={`w-full flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-colors ${
-                  activeTab === tab.id
-                    ? "bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400"
-                    : "text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700"
+                className={`w-full flex items-center px-3 py-2.5 text-sm font-medium rounded-lg transition-all duration-200 ${
+                  isActive
+                    ? "bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-md"
+                    : "text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700/50 hover:translate-x-1"
                 }`}
               >
-                <Icon className="w-5 h-5 mr-3" />
-                {tab.label}
+                <Icon className={`w-4 h-4 mr-2.5 ${isActive ? 'text-white' : 'text-gray-500 dark:text-gray-400'}`} />
+                <span className="font-medium truncate">{tab.label}</span>
               </button>
             );
           })}
